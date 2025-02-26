@@ -72,6 +72,9 @@ dependencies {
 	// Flight
 	modImplementation include("io.github.ladysnake:PlayerAbilityLib:${pal_version}")
 
+	modImplementation include("eu.pb4:polymer-resource-pack:${project.polymer_version}")
+	modImplementation include("eu.pb4:polymer-autohost:${project.polymer_version}")
+
 	// Dev testing
 	//modCompileOnly 'curse.maven:BLAST-349938:3838824'
 	//modCompileOnly 'com.github.Ladysnake:BLAST:1.19-SNAPSHOT'

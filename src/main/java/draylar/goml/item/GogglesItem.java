@@ -1,12 +1,15 @@
 package draylar.goml.item;
 
 import dev.emi.trinkets.api.SlotReference;
+import dev.emi.trinkets.api.Trinket;
 import dev.emi.trinkets.api.TrinketItem;
 import dev.emi.trinkets.api.TrinketsApi;
 import draylar.goml.GetOffMyLawn;
 import draylar.goml.api.ClaimUtils;
 import draylar.goml.api.WorldParticleUtils;
 import eu.pb4.polymer.core.api.item.PolymerItem;
+import eu.pb4.polymer.core.api.item.SimplePolymerItem;
+import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
@@ -31,7 +34,7 @@ import java.util.stream.Collectors;
 
 public class GogglesItem extends TrinketItem implements PolymerItem {
     public GogglesItem(Item.Settings settings) {
-        super(settings);
+        super(settings.maxCount(1));
         TrinketsApi.registerTrinket(this, this);
     }
 
@@ -90,17 +93,12 @@ public class GogglesItem extends TrinketItem implements PolymerItem {
     }
 
     @Override
-    public boolean hasGlint(ItemStack stack) {
-        return true;
+    public Item getPolymerItem(ItemStack itemStack, PacketContext context) {
+        return Items.IRON_INGOT;
     }
 
     @Override
-    public Item getPolymerItem(ItemStack itemStack, PacketContext player) {
-        return Items.IRON_HELMET;
-    }
-
-    @Override
-    public @Nullable Identifier getPolymerItemModel(ItemStack stack, PacketContext context) {
-        return null;
+    public Identifier getPolymerItemModel(ItemStack stack, PacketContext context) {
+        return PolymerResourcePackUtils.hasMainPack(context) ? PolymerItem.super.getPolymerItemModel(stack, context) : null;
     }
 }

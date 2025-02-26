@@ -1,12 +1,12 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "# #",
+    "L L",
     "GiG",
     "   "
   ],
   "key": {
-    "#": "minecraft:string",
+    "L": "minecraft:leather",
     "G": "minecraft:glass",
     "i": "minecraft:iron_ingot"
   },

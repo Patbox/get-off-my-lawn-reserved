@@ -1,5 +1,6 @@
 package draylar.goml;
 
+import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import org.ladysnake.cca.api.v3.component.ComponentKey;
 import org.ladysnake.cca.api.v3.component.ComponentRegistryV3;
 import org.ladysnake.cca.api.v3.world.WorldComponentFactoryRegistry;
@@ -65,6 +66,8 @@ public class GetOffMyLawn implements ModInitializer, WorldComponentInitializer {
         EventHandlers.init();
         ClaimCommand.init();
         PlaceholdersReg.init();
+
+        PolymerResourcePackUtils.addModAssets("goml");
 
         PolymerItemGroupUtils.registerPolymerItemGroup(id("group"), GROUP);
 

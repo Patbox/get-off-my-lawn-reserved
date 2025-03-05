@@ -216,29 +216,31 @@ public class ClaimUtils {
     }
 
     public static boolean canDamageEntity(World world, Entity entity, DamageSource source) {
+        return canDamageEntity(world, entity, source.getAttacker(), source.getSource());
+    }
+    public static boolean canDamageEntity(World world, Entity entity, @Nullable Entity attacker, @Nullable Entity source) {
         if (world.isClient) {
             return true;
         }
 
-        if (entity == source.getAttacker()) {
+        if (entity == attacker) {
             return true;
         }
 
         PlayerEntity player;
 
-         if (source.getAttacker() instanceof PlayerEntity playerEntity) {
+         if (attacker instanceof PlayerEntity playerEntity) {
             player = playerEntity;
-        } else if (!GetOffMyLawn.CONFIG.protectAgainstHostileExplosionsActivatedByTrustedPlayers && source.getAttacker() instanceof MobEntity creeperEntity && creeperEntity.getTarget() instanceof PlayerEntity playerEntity) {
+        } else if (!GetOffMyLawn.CONFIG.protectAgainstHostileExplosionsActivatedByTrustedPlayers && attacker instanceof MobEntity creeperEntity && creeperEntity.getTarget() instanceof PlayerEntity playerEntity) {
             player = playerEntity;
-        } else if (source.getAttacker() instanceof ProjectileEntity projectileEntity && projectileEntity.getOwner() instanceof PlayerEntity playerEntity) {
+        } else if (attacker instanceof ProjectileEntity projectileEntity && projectileEntity.getOwner() instanceof PlayerEntity playerEntity) {
             player = playerEntity;
-        } else if (source.getAttacker() instanceof AreaEffectCloudEntity projectileEntity && projectileEntity.getOwner() instanceof PlayerEntity playerEntity) {
+        } else if (attacker instanceof AreaEffectCloudEntity projectileEntity && projectileEntity.getOwner() instanceof PlayerEntity playerEntity) {
             player = playerEntity;
-        } else if (source.getAttacker() instanceof TameableEntity projectileEntity && projectileEntity.getOwner() instanceof PlayerEntity playerEntity) {
+        } else if (attacker instanceof TameableEntity projectileEntity && projectileEntity.getOwner() instanceof PlayerEntity playerEntity) {
             player = playerEntity;
-        } else if (!(entity instanceof PlayerEntity) && source.getSource() != null && (source.getAttacker() == null || source.getSource() == source.getAttacker())) {
-            var projectile = source.getSource();
-            return hasMatchingClaims(world, entity.getBlockPos(), ((OriginOwner) projectile).goml$getOriginSafe());
+        } else if (!(entity instanceof PlayerEntity) && source != null && (attacker == null || source == attacker)) {
+            return hasMatchingClaims(world, entity.getBlockPos(), ((OriginOwner) source).goml$getOriginSafe());
         } else {
             return true;
         }
@@ -277,6 +279,7 @@ public class ClaimUtils {
                         case DISABLED -> false;
                         case TRUSTED -> claim.hasPermission(player) && claim.hasPermission(attackedPlayer);
                         case UNTRUSTED -> !claim.hasPermission(player) && !claim.hasPermission(attackedPlayer);
+                        case null -> false;
                     });
                 });
 

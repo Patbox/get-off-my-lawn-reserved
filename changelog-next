@@ -1,0 +1,4 @@
+- Fix sweeping knockback applying to protected entities in claims.
+
+
+https://github.com/Patbox/get-off-my-lawn-reserved/issues/72

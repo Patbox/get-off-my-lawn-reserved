@@ -55,7 +55,7 @@ public class ClaimListGui extends PagedGui {
             var icon = GuiElementBuilder.from(claim.getIcon());
             icon.setName(Text.literal(claim.getOrigin().toShortString()).append(Text.literal(" (" + claim.getWorld().toString() + ")").formatted(Formatting.GRAY)));
             var lore = ClaimUtils.getClaimText(server, entry.getValue());
-            lore.remove(0);
+            lore.removeFirst();
             icon.setLore(lore);
 
             icon.setCallback((x, y, z) -> {

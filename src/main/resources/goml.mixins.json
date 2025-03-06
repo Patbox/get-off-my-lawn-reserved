@@ -15,7 +15,6 @@
     "FlowableFluidMixin",
     "PistonBlockMixin",
     "PistonHandlerMixin",
-    "PlayerEntityMixin",
     "PlayerManagerMixin",
     "ProjectileEntityMixin",
     "ServerPlayerEntityMixin",

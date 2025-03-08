@@ -24,12 +24,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class GOMLConfig {
-    public int makeshiftRadius = 10;
-    public int reinforcedRadius = 25;
-    public int glisteningRadius = 50;
-    public int crystalRadius = 75;
-    public int emeradicRadius = 125;
-    public int witheredRadius = 200;
+    public int makeshiftRadius = 2;
+    public int primitiveRadius = 2;
+    public int reinforcedRadius = 8;
+    public int glisteningRadius = 16;
+    public int emeradicRadius = 32;
+    public int crystalRadius = 64;
+    public int netheredRadius = 128;
 
     public int maxClaimsPerPlayer = -1;
     public boolean enablePvPinClaims = false;

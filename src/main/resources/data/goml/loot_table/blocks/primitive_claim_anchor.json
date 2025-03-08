@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "goml:withered_claim_anchor"
+          "name": "goml:primitive_claim_anchor"
         }
       ],
       "conditions": [

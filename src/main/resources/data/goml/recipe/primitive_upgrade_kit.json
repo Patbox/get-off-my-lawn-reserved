@@ -6,11 +6,11 @@
     "iii"
   ],
   "key": {
-    "i": "minecraft:gold_ingot",
-    "I": "minecraft:gold_block"
+    "i": "minecraft:copper_ingot",
+    "I": "minecraft:copper_block"
   },
   "result": {
-    "id": "goml:glistening_upgrade_kit",
+    "id": "goml:primitive_upgrade_kit",
     "count": 1
   }
 }

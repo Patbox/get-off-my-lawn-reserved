@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " i ",
+    "iOi",
+    " i "
+  ],
+  "key": {
+    "i": "minecraft:netherite_ingot",
+    "O": "goml:crystal_claim_anchor"
+  },
+  "result": {
+    "id": "goml:nethered_claim_anchor",
+    "count": 1
+  }
+}

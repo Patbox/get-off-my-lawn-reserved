@@ -1,15 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "#i#",
+    "iii",
     "IOI",
-    "#i#"
+    "iii"
   ],
   "key": {
-    "#": "minecraft:stone",
     "i": "minecraft:emerald",
     "I": "minecraft:emerald_block",
-    "O": "goml:crystal_claim_anchor"
+    "O": "goml:glistening_claim_anchor"
   },
   "result": {
     "id": "goml:emeradic_claim_anchor",

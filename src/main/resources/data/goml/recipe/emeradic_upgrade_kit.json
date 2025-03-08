@@ -1,15 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "#i#",
-    "IOI",
-    "#i#"
+    "iii",
+    "I I",
+    "iii"
   ],
   "key": {
-    "#": "minecraft:stone",
     "i": "minecraft:emerald",
-    "I": "minecraft:emerald_block",
-    "O": "minecraft:iron_ingot"
+    "I": "minecraft:emerald_block"
   },
   "result": {
     "id": "goml:emeradic_upgrade_kit",

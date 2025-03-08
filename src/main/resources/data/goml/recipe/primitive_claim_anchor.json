@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iii",
+    "IOI",
+    "iii"
+  ],
+  "key": {
+    "i": "minecraft:copper_ingot",
+    "I": "minecraft:copper_block",
+    "O": "goml:makeshift_claim_anchor"
+  },
+  "result": {
+    "id": "goml:primitive_claim_anchor",
+    "count": 1
+  }
+}

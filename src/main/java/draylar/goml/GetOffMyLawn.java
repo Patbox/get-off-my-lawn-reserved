@@ -43,7 +43,7 @@ public class GetOffMyLawn implements ModInitializer, WorldComponentInitializer {
     public static final ComponentKey<ClaimComponent> CLAIM = ComponentRegistryV3.INSTANCE.getOrCreate(id("claims"), ClaimComponent.class);
     public static final ItemGroup GROUP = ItemGroup.create(null, -1)
             .displayName(Text.translatable("itemGroup.goml.group"))
-            .icon(() -> new ItemStack(GOMLBlocks.WITHERED_CLAIM_ANCHOR.getSecond()))
+            .icon(() -> new ItemStack(GOMLBlocks.NETHERED_CLAIM_ANCHOR.getSecond()))
             .entries((ctx, c) -> {
                 GOMLBlocks.ANCHORS.forEach(c::add);
                 GOMLBlocks.AUGMENTS.forEach(c::add);

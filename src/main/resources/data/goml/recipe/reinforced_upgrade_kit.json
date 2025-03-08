@@ -1,15 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "#i#",
-    "IOI",
-    "#i#"
+    "iii",
+    "I I",
+    "iii"
   ],
   "key": {
-    "#": "minecraft:stone",
     "i": "minecraft:iron_ingot",
-    "I": "minecraft:iron_block",
-    "O": "minecraft:iron_ingot"
+    "I": "minecraft:iron_block"
   },
   "result": {
     "id": "goml:reinforced_upgrade_kit",

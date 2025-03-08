@@ -1,12 +1,11 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "#i#",
+    "iii",
     "IOI",
-    "#i#"
+    "iii"
   ],
   "key": {
-    "#": "minecraft:stone",
     "i": "minecraft:gold_ingot",
     "I": "minecraft:gold_block",
     "O": "goml:reinforced_claim_anchor"

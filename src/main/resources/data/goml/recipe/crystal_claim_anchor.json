@@ -1,15 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "#i#",
+    "iii",
     "IOI",
-    "#i#"
+    "iii"
   ],
   "key": {
-    "#": "minecraft:stone",
     "i": "minecraft:diamond",
     "I": "minecraft:diamond_block",
-    "O": "goml:glistening_claim_anchor"
+    "O": "goml:emeradic_claim_anchor"
   },
   "result": {
     "id": "goml:crystal_claim_anchor",

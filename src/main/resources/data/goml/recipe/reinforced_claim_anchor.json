@@ -1,15 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "#i#",
+    "iii",
     "IOI",
-    "#i#"
+    "iii"
   ],
   "key": {
-    "#": "minecraft:stone",
     "i": "minecraft:iron_ingot",
     "I": "minecraft:iron_block",
-    "O": "goml:makeshift_claim_anchor"
+    "O": "goml:primitive_claim_anchor"
   },
   "result": {
     "id": "goml:reinforced_claim_anchor",

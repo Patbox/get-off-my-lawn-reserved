@@ -38,7 +38,7 @@
       "goml:claims"
     ],
     "polydex:entry/goml": {
-      "icon": "goml:withered_claim_anchor"
+      "icon": "goml:nethered_claim_anchor"
     }
   }
 }

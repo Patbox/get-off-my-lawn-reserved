@@ -1,11 +1,12 @@
 {
   "replace": false,
   "values": [
+   "goml:primitive_claim_anchor",
    "goml:reinforced_claim_anchor",
    "goml:glistening_claim_anchor",
    "goml:crystal_claim_anchor",
    "goml:emeradic_claim_anchor",
-   "goml:withered_claim_anchor",
+   "goml:nethered_claim_anchor",
    "goml:ender_binding",
    "goml:lake_spirit_grace",
    "goml:angelic_aura",
@@ -13,8 +14,8 @@
    "goml:village_core",
    "goml:withering_seal",
    "goml:chaos_zone",
-    "goml:force_field",
-    "goml:explosion_controller",
-    "goml:pvp_arena"
+   "goml:force_field",
+   "goml:explosion_controller",
+   "goml:pvp_arena"
   ]
 }

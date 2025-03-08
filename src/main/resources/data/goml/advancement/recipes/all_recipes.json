@@ -17,11 +17,13 @@
       "goml:heaven_wings",
       "goml:lake_spirit_grace",
       "goml:makeshift_claim_anchor",
+      "goml:primitive_claim_anchor",
+      "goml:primitive_upgrade_kit",
       "goml:reinforced_claim_anchor",
       "goml:reinforced_upgrade_kit",
       "goml:village_core",
-      "goml:withered_claim_anchor",
-      "goml:withered_upgrade_kit",
+      "goml:nethered_claim_anchor",
+      "goml:nethered_upgrade_kit",
       "goml:withering_seal"
     ]
   },

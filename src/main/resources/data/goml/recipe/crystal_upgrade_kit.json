@@ -1,15 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "#i#",
-    "IOI",
-    "#i#"
+    "iii",
+    "I I",
+    "iii"
   ],
   "key": {
-    "#": "minecraft:stone",
     "i": "minecraft:diamond",
-    "I": "minecraft:diamond_block",
-    "O": "minecraft:iron_ingot"
+    "I": "minecraft:diamond_block"
   },
   "result": {
     "id": "goml:crystal_upgrade_kit",

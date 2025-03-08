@@ -25,7 +25,7 @@ import java.util.*;
 
 public class GOMLConfig {
     public int makeshiftRadius = 2;
-    public int primitiveRadius = 2;
+    public int primitiveRadius = 4;
     public int reinforcedRadius = 8;
     public int glisteningRadius = 16;
     public int emeradicRadius = 32;

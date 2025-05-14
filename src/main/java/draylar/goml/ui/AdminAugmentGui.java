@@ -46,7 +46,7 @@ public class AdminAugmentGui extends SimpleGui {
                     } else if (a.isRight) {
                         this.claimRadius += a.shift ? 10 : 1;
                     }
-                    g.getSlot(i).getItemStack().set(DataComponentTypes.ITEM_NAME, Text.translatable("text.goml.radius", this.claimRadius).setStyle(Style.EMPTY.withItalic(false)));
+                    g.getSlot(i).getItemStack().set(DataComponentTypes.CUSTOM_NAME, Text.translatable("text.goml.radius", this.claimRadius).setStyle(Style.EMPTY.withItalic(false)));
                 })
         );
         this.addSlot(new GuiElementBuilder(Items.ANDESITE_WALL)
@@ -58,7 +58,7 @@ public class AdminAugmentGui extends SimpleGui {
                     } else if (a.isRight) {
                         this.claimHeight += a.shift ? 10 : 1;
                     }
-                    g.getSlot(i).getItemStack().set(DataComponentTypes.ITEM_NAME, Text.translatable("text.goml.height", this.claimHeight).setStyle(Style.EMPTY.withItalic(false)));
+                    g.getSlot(i).getItemStack().set(DataComponentTypes.CUSTOM_NAME, Text.translatable("text.goml.height", this.claimHeight).setStyle(Style.EMPTY.withItalic(false)));
 
                 })
         );

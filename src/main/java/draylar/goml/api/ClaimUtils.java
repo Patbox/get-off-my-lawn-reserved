@@ -235,9 +235,9 @@ public class ClaimUtils {
             player = playerEntity;
         } else if (attacker instanceof ProjectileEntity projectileEntity && projectileEntity.getOwner() instanceof PlayerEntity playerEntity) {
             player = playerEntity;
-        } else if (attacker instanceof AreaEffectCloudEntity projectileEntity && projectileEntity.getOwner() instanceof PlayerEntity playerEntity) {
+        } else if (attacker instanceof AreaEffectCloudEntity areaEffectCloudEntity && areaEffectCloudEntity.getOwner() instanceof PlayerEntity playerEntity) {
             player = playerEntity;
-        } else if (attacker instanceof TameableEntity projectileEntity && projectileEntity.getOwner() instanceof PlayerEntity playerEntity) {
+        } else if (attacker instanceof TameableEntity tameableEntity && tameableEntity.getOwner() instanceof PlayerEntity playerEntity) {
             player = playerEntity;
         } else if (!(entity instanceof PlayerEntity) && source != null && (attacker == null || source == attacker)) {
             return hasMatchingClaims(world, entity.getBlockPos(), ((OriginOwner) source).goml$getOriginSafe());
@@ -471,7 +471,7 @@ public class ClaimUtils {
             trusted.add(uuid);
         }
 
-        claims.forEach(x -> {
+        originClaims.forEach(x -> {
             trusted.addAll(x.getValue().getOwners());
             trusted.addAll(x.getValue().getTrusted());
         });

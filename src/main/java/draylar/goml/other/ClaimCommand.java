@@ -17,6 +17,7 @@ import draylar.goml.api.event.ClaimEvents;
 import draylar.goml.config.GOMLConfig;
 import draylar.goml.registry.GOMLEntities;
 import draylar.goml.ui.ClaimListGui;
+import draylar.goml.block.augment.HeavenWingsAugmentBlock;
 import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.block.Blocks;
@@ -62,6 +63,10 @@ public class ClaimCommand {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
 
             dispatcher.register(literal("goml")
+                    .then(literal("debug_flight")
+                            .requires(Permissions.require("goml.command.command.help", true))
+                            .executes(ClaimCommand::debugFlightCommand)
+                    )
                     .then(literal("help")
                             .requires(Permissions.require("goml.command.command.help", true))
                             .executes(ClaimCommand::help)
@@ -171,6 +176,22 @@ public class ClaimCommand {
 
 
         return 0;
+    }
+
+    private static int debugFlightCommand(CommandContext<ServerCommandSource> context) {
+        ServerCommandSource source = context.getSource();
+        
+        try {
+            if (source.getPlayer() != null) {
+                HeavenWingsAugmentBlock.debugFlightReferences(source.getPlayer());
+            } else {
+                source.sendFeedback(() -> Text.literal("This command must be run by a player"), false);
+            }
+        } catch (Exception e) {
+            source.sendFeedback(() -> Text.literal("Error: " + e.getMessage()), false);
+        }
+        
+        return 1;
     }
 
     private static int escape(CommandContext<ServerCommandSource> context, ServerPlayerEntity player) {

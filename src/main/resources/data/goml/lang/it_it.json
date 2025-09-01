@@ -23,6 +23,10 @@
   "block.goml.angelic_aura.description.1": "Dona a tutti i giocatori nel territorio",
   "block.goml.angelic_aura.description.2": "rigenerazione.",
 
+  "block.goml.haste_aura": "Aura di Celerità",
+  "block.goml.haste_aura.description.1": "Conferisce a tutti i giocatori all'interno di un'area rivendicata",
+  "block.goml.haste_aura.description.2": "celerità.",
+
   "block.goml.heaven_wings": "Ali paradisiache",
   "block.goml.heaven_wings.description.1": "Dona a tutti i giocatori nel territorio",
   "block.goml.heaven_wings.description.2": "volo libero.",

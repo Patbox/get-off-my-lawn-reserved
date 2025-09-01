@@ -1,4 +1,7 @@
 {
   "itemGroup.goml.group": "Quitter mon terrain",
-  "block.goml.reinforced_claim_anchor": "Ancre de revendication renforcée"
+  "block.goml.reinforced_claim_anchor": "Ancre de revendication renforcée",
+  "block.goml.haste_aura": "Aura de Hâte",
+  "block.goml.haste_aura.description.1": "Accorde à tous les joueurs à l'intérieur d'une zone protégée",
+  "block.goml.haste_aura.description.2": "hâte."
 }

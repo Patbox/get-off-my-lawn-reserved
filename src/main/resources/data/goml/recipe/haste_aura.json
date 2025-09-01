@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#B#",
+    "###"
+  ],
+  "key": {
+    "#": "minecraft:diamond",
+    "B": "minecraft:beacon"
+  },
+  "result": {
+    "id": "goml:haste_aura",
+    "count": 1
+  }
+}

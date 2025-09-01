@@ -27,6 +27,10 @@
   "block.goml.heaven_wings.description.1": "Grants all players within a claim",
   "block.goml.heaven_wings.description.2": "free flight.",
 
+  "block.goml.haste_aura": "Haste Aura",
+  "block.goml.haste_aura.description.1": "Grants all players within a claim",
+  "block.goml.haste_aura.description.2": "haste.",
+
   "block.goml.village_core": "Village Core",
   "block.goml.village_core.description.1": "Protects all villagers within a claim",
   "block.goml.village_core.description.2": "from damage caused by hostile mobs.",

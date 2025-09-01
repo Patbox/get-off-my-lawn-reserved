@@ -47,6 +47,9 @@
 ## Greeter
 ![](recipes/greeter.png)
 
+## Haste Arua
+![](recipes/haste_aura.png)
+
 ## Heaven Wings
 ![](recipes/heaven_wings.png)
 

@@ -38,6 +38,7 @@ public class GOMLBlocks {
     public static final Pair<ClaimAugmentBlock, Item> ENDER_BINDING = register("ender_binding", (s) -> new EnderBindingAugmentBlock(s.hardness(10).resistance(3600000.0F), GOMLTextures.ENDER_BINDING), 2);
     public static final Pair<ClaimAugmentBlock, Item> LAKE_SPIRIT_GRACE = register("lake_spirit_grace",(s) ->  new LakeSpiritGraceAugmentBlock(s.hardness(10).resistance(3600000.0F), GOMLTextures.LAKE_SPIRIT_GRACE), 2);
     public static final Pair<ClaimAugmentBlock, Item> ANGELIC_AURA = register("angelic_aura", (s) -> new AngelicAuraAugmentBlock(s.hardness(10).resistance(3600000.0F), GOMLTextures.ANGELIC_AURA), 2);
+    public static final Pair<ClaimAugmentBlock, Item> HASTE_AURA = register("haste_aura", (s) -> new HasteAuraAugmentBlock(s.hardness(10).resistance(3600000.0F), GOMLTextures.HASTE_AURA), 2);
     public static final Pair<ClaimAugmentBlock, Item> HEAVEN_WINGS = register("heaven_wings", (s) -> new HeavenWingsAugmentBlock(s.hardness(10).resistance(3600000.0F), GOMLTextures.HEAVEN_WINGS), 2);
     public static final Pair<ClaimAugmentBlock, Item> VILLAGE_CORE = register("village_core",(s) ->  new ClaimAugmentBlock(s.hardness(10).resistance(3600000.0F), GOMLTextures.VILLAGE_CORE), 2);
     public static final Pair<ClaimAugmentBlock, Item> WITHERING_SEAL = register("withering_seal", (s) -> new WitheringSealAugmentBlock(s.hardness(10).resistance(3600000.0F), GOMLTextures.WITHERING_SEAL), 2);

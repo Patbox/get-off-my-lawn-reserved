@@ -1,16 +1,14 @@
 package draylar.goml.other;
 
-import com.mojang.logging.LogUtils;
 import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;
-import org.slf4j.Logger;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
 public class CardboardWarning implements PreLaunchEntrypoint {
+    private static final Logger LOGGER = draylar.goml.GetOffMyLawn.LOGGER;
     public static final String MOD_NAME = "Get Off My Lawn Reserved";
-    public static final Logger LOGGER = LogUtils.getLogger();
 
     // Overwrite heavy and generally problematic bukkit implementation
     private static final List<String> BROKEN_BUKKIT_IMPL = List.of("cardboard", "banner", "arclight");

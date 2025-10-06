@@ -9,7 +9,7 @@ import draylar.goml.api.GomlProtectionProvider;
 import draylar.goml.cca.ClaimComponent;
 import draylar.goml.cca.WorldClaimComponent;
 import draylar.goml.compat.ArgonautsCompat;
-import draylar.goml.compat.DynmapCompat;
+import draylar.goml.compat.webmap.WebmapCompat;
 import draylar.goml.other.CardboardWarning;
 import draylar.goml.other.ClaimCommand;
 import draylar.goml.config.GOMLConfig;
@@ -38,7 +38,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.function.Consumer;
 
 public class GetOffMyLawn implements ModInitializer, WorldComponentInitializer {
-
+    public static final String MOD_ID = "goml";
     public static final ComponentKey<ClaimComponent> CLAIM = ComponentRegistryV3.INSTANCE.getOrCreate(id("claims"), ClaimComponent.class);
     public static final ItemGroup GROUP = ItemGroup.create(null, -1)
             .displayName(Text.translatable("itemGroup.goml.group"))
@@ -49,11 +49,11 @@ public class GetOffMyLawn implements ModInitializer, WorldComponentInitializer {
                 GOMLItems.BASE_ITEMS.forEach(c::add);
             })
             .build();
-    public static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
     public static GOMLConfig CONFIG = new GOMLConfig();
 
     public static Identifier id(String name) {
-        return Identifier.of("goml", name);
+        return Identifier.of(MOD_ID, name);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class GetOffMyLawn implements ModInitializer, WorldComponentInitializer {
 
         PolymerItemGroupUtils.registerPolymerItemGroup(id("group"), GROUP);
 
-        CommonProtection.register(Identifier.of("goml", "claim_protection"), GomlProtectionProvider.INSTANCE);
+        CommonProtection.register(Identifier.of(MOD_ID, "claim_protection"), GomlProtectionProvider.INSTANCE);
 
         ServerLifecycleEvents.SERVER_STARTING.register((s) -> {
             CardboardWarning.checkAndAnnounce();
@@ -82,9 +82,7 @@ public class GetOffMyLawn implements ModInitializer, WorldComponentInitializer {
             ArgonautsCompat.init();
         }
 
-        if (FabricLoader.getInstance().isModLoaded("dynmap")) {
-            ServerLifecycleEvents.SERVER_STARTED.register(DynmapCompat::init);
-        }
+        ServerLifecycleEvents.SERVER_STARTED.register(WebmapCompat::init);
 
         ServerChunkEvents.CHUNK_LOAD.register((world, server) -> GetOffMyLawn.onChunkEvent(world, server, Claim::internal_incrementChunks));
         ServerChunkEvents.CHUNK_UNLOAD.register((world, server) -> GetOffMyLawn.onChunkEvent(world, server, Claim::internal_decrementChunks));

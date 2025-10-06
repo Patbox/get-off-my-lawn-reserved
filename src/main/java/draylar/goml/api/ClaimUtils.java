@@ -515,7 +515,7 @@ public class ClaimUtils {
         return id.getNamespace().equals("minecraft") && id.getPath().endsWith("_concrete");
     }).map((b) -> b.getDefaultState()).collect(Collectors.toList()).toArray(new BlockState[0]);
 
-    public static int dynmapClaimColor(Claim claim) {
+    public static int webMapClaimColor(Claim claim) {
         return CLAIM_COLORS_RGB[claimColorIndex(claim)];
     }
 

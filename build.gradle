@@ -26,6 +26,7 @@ repositories {
 	maven { url 'https://maven.blamejared.com' }
 	maven { url "https://maven.shedaniel.me" }
 	maven { url "https://api.modrinth.com/maven" }
+	maven { url 'https://repo.bluecolored.de/releases' }
 
 	maven {
 		name = "TerraformersMC"
@@ -80,7 +81,7 @@ dependencies {
 
 	//modCompileOnly "maven.modrinth:argonauts:${project.argonauts_version}"
 	//modCompileOnly "maven.modrinth:resourceful-lib:${project.reslib_version}"
-	modCompileOnly "curse.maven:dynmapforge-59433:4958242"
+	modCompileOnly "curse.maven:dynmapforge-59433:5442994"
 
 	// Server side stuff
 	modImplementation include("eu.pb4:polymer-core:${project.polymer_version}")
@@ -90,7 +91,9 @@ dependencies {
 	modImplementation include("me.lucko:fabric-permissions-api:0.4.2-patbox.1")
 	modImplementation include("eu.pb4:common-protection-api:1.0.0")
 
+	// Webmap integrations
 	compileOnly "us.dynmap:DynmapCoreAPI:${dynmap_version}"
+	compileOnly "de.bluecolored:bluemap-api:${bluemap_version}"
 }
 
 processResources {

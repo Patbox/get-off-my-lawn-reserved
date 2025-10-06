@@ -162,8 +162,9 @@
   "text.goml.argonauts.guild_type.display": "Guild: %s",
   "text.goml.argonauts.guild_type.name": "Argonaut Guild",
 
-  "text.goml.dynmap.label.claim_type": "Claim type",
-  "text.goml.dynmap.label.owners": "Owners",
-  "text.goml.dynmap.label.trusted": "Trusted",
-  "text.goml.dynmap.label.augments": "Augments"
+  "text.goml.webmap.claims": "Claims",
+  "text.goml.webmap.label.unknown": "Unknown",
+  "text.goml.webmap.label.owners": "Owner(s):",
+  "text.goml.webmap.label.trusted": "Trusted:",
+  "text.goml.webmap.label.augments": "Augments:"
 }

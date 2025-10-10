@@ -1,9 +1,5 @@
 package draylar.goml.block.augment;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.UUID;
-
 import draylar.goml.block.SelectiveClaimAugmentBlock;
 import io.github.ladysnake.pal.AbilitySource;
 import io.github.ladysnake.pal.Pal;

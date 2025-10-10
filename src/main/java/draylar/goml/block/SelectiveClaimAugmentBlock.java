@@ -14,12 +14,19 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.math.BlockPos;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.UUID;
 
 public class SelectiveClaimAugmentBlock extends ClaimAugmentBlock {
 
     public final DataKey<StatusEnum.TargetPlayer> key;
+    private static final Map<UUID, HashSet<BlockPos>> playerAugmentSources = new HashMap<>();
 
     public SelectiveClaimAugmentBlock(String key, AbstractBlock.Settings settings, String texture) {
         super(settings, texture);
@@ -28,9 +35,13 @@ public class SelectiveClaimAugmentBlock extends ClaimAugmentBlock {
 
     @Override
     public void onPlayerEnter(Claim claim, PlayerEntity player) {
-        if (this.canApply(claim, player)) {
+        UUID playerId = player.getUuid();
+        HashSet<BlockPos> currentRefs = playerAugmentSources.getOrDefault(playerId, new HashSet<BlockPos>());
+        if (this.canApply(claim, player) && currentRefs.isEmpty()) {
             this.applyEffect(player);
         }
+        currentRefs.add(claim.getOrigin());
+        playerAugmentSources.put(playerId, currentRefs);
     }
 
     protected boolean canApply(Claim claim, PlayerEntity player) {
@@ -42,7 +53,14 @@ public class SelectiveClaimAugmentBlock extends ClaimAugmentBlock {
 
     @Override
     public void onPlayerExit(Claim claim, PlayerEntity player) {
-        this.removeEffect(player);
+        UUID playerId = player.getUuid();
+        HashSet<BlockPos> currentRefs = playerAugmentSources.getOrDefault(playerId, new HashSet<BlockPos>());
+
+        currentRefs.remove(claim.getOrigin());
+        if (currentRefs.isEmpty()) {
+            playerAugmentSources.remove(playerId);
+            this.removeEffect(player);
+        }
     }
 
     public void applyEffect(PlayerEntity player) {};

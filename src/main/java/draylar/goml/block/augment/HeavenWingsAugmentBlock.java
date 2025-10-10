@@ -27,5 +27,4 @@ public class HeavenWingsAugmentBlock extends SelectiveClaimAugmentBlock {
     public void removeEffect(PlayerEntity player) {
         HEAVEN_WINGS.revokeFrom(player, VanillaAbilities.ALLOW_FLYING);
     }
-
 }

@@ -45,18 +45,10 @@ public class BucketItemMixin extends Item {
         }
 
         HitResult hitResult = getPlayerPOVHitResult(world, user, this.content == Fluids.EMPTY ? ClipContext.Fluid.SOURCE_ONLY : ClipContext.Fluid.NONE);
-        BlockHitResult blockHitResult = (BlockHitResult) hitResult;
-        BlockPos blockPos = blockHitResult.getBlockPos();
 
-        Selection<Entry<ClaimBox, Claim>> claimsFound = ClaimUtils.getClaimsAt(world, blockPos);
-
-        if (!claimsFound.isEmpty()) {
-            boolean noPermission = claimsFound.anyMatch((Entry<ClaimBox, Claim> boxInfo) -> !boxInfo.getValue().hasPermission(user));
-
-            if(noPermission) {
-                user.displayClientMessage(Component.literal("This block is protected by a claim."), true);
-                cir.setReturnValue(InteractionResult.FAIL);
-            }
+        if(!ClaimUtils.canModify(world, ((BlockHitResult) hitResult).getBlockPos(), user)) {
+            user.displayClientMessage(Component.literal("This block is protected by a claim."), true);
+            cir.setReturnValue(InteractionResult.FAIL);
         }
     }
 }

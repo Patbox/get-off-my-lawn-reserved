@@ -34,7 +34,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.TamableAnimal;
-import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.component.ResolvableProfile;
@@ -260,7 +260,7 @@ public class ClaimUtils {
 
         if ((GetOffMyLawn.CONFIG.allowDamagingNamedHostileMobs
                 || (GetOffMyLawn.CONFIG.allowDamagingUnnamedHostileMobs && entity.getCustomName() == null))
-                && entity instanceof Monster
+                && entity instanceof Enemy
         ) {
             return true;
         }

@@ -11,6 +11,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Player.class)
 public abstract class PlayerMixin extends LivingEntity {
@@ -22,5 +24,13 @@ public abstract class PlayerMixin extends LivingEntity {
     private List<Entity> filterEntities(List<Entity> original) {
         original.removeIf(x -> !ClaimUtils.canDamageEntity(this.level(), x, this, null));
         return original;
+    }
+
+
+    @Inject(method = "cannotAttack", at = @At("HEAD"), cancellable = true)
+    private void preventAttack(Entity entity, CallbackInfoReturnable<Boolean> cir) {
+        if (!ClaimUtils.canDamageEntity(this.level(), entity, this, null)) {
+            cir.setReturnValue(true);
+        }
     }
 }

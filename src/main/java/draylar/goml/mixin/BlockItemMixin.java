@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class BlockItemMixin {
     @ModifyExpressionValue(method = "place(Lnet/minecraft/world/item/context/BlockPlaceContext;)Lnet/minecraft/world/InteractionResult;", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/BlockItem;updatePlacementContext(Lnet/minecraft/world/item/context/BlockPlaceContext;)Lnet/minecraft/world/item/context/BlockPlaceContext;"))
     private BlockPlaceContext preventPlacingInClaim(BlockPlaceContext original) {
-        if (!ClaimUtils.canModify(original.getLevel(), original.getClickedPos(), original.getPlayer())) {
+        if (original.getPlayer() != null && !ClaimUtils.canModify(original.getLevel(), original.getClickedPos(), original.getPlayer())) {
             return null;
         }
 

@@ -97,6 +97,7 @@ public class PlayerRecord {
      */
     public void resolvePlayer() {
         if(this.uuid != null) {
+            mainTry:
             try {
                 // Check cache first
                 String json = PlayerRecordCache.getProfile(this.uuid);
@@ -109,6 +110,10 @@ public class PlayerRecord {
                 
                 Gson gson = new Gson();
                 Map<String, Object> profile = gson.fromJson(json, new TypeToken<Map<String, Object>>(){}.getType());
+
+                if (profile == null) {
+                    break mainTry;
+                }
 
                 // Extract player data and create icon
                 this.name = (String) profile.get("name");

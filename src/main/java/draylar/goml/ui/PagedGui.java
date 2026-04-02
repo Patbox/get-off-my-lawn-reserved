@@ -3,8 +3,8 @@ package draylar.goml.ui;
 import draylar.goml.registry.GOMLTextures;
 import eu.pb4.sgui.api.elements.GuiElement;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
-import eu.pb4.sgui.api.elements.GuiElementBuilderInterface;
-import eu.pb4.sgui.api.elements.GuiElementInterface;
+import eu.pb4.sgui.api.elements.GuiElementBuilderCreator;
+import eu.pb4.sgui.api.elements.SimpleGuiElement;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -18,6 +18,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Objects;
+import java.util.function.Supplier;
 
 @ApiStatus.Internal
 public abstract class PagedGui extends SimpleGui {
@@ -38,7 +41,7 @@ public abstract class PagedGui extends SimpleGui {
     }
 
     @Override
-    public void onClose() {
+    public void onManualClose() {
         if (this.closeCallback != null && !ignoreCloseCallback) {
             this.closeCallback.run();
         }
@@ -75,7 +78,7 @@ public abstract class PagedGui extends SimpleGui {
             if (element.element() != null) {
                 this.setSlot(i, element.element());
             } else if (element.slot() != null) {
-                this.setSlotRedirect(i, element.slot());
+                this.setSlot(i, element.slot());
             }
         }
 
@@ -86,10 +89,10 @@ public abstract class PagedGui extends SimpleGui {
                 navElement = DisplayElement.EMPTY;
             }
 
-            if (navElement.element != null) {
-                this.setSlot(i + PAGE_SIZE, navElement.element);
+            if (navElement.elementSupplier != null) {
+                this.setSlot(i + PAGE_SIZE, navElement.element());
             } else if (navElement.slot != null) {
-                this.setSlotRedirect(i + PAGE_SIZE, navElement.slot);
+                this.setSlot(i + PAGE_SIZE, navElement.slot);
             }
         }
     }
@@ -110,7 +113,7 @@ public abstract class PagedGui extends SimpleGui {
                     new GuiElementBuilder(Items.STRUCTURE_VOID)
                             .setName(Component.translatable(this.closeCallback != null ? "text.goml.gui.back" : "text.goml.gui.close").withStyle(ChatFormatting.RED))
                             .hideDefaultTooltip()
-                            .setCallback((x, y, z) -> {
+                            .setCallback(() -> {
                                 playClickSound(this.player);
                                 this.close(this.closeCallback != null);
                             })
@@ -119,20 +122,20 @@ public abstract class PagedGui extends SimpleGui {
         };
     }
 
-    public record DisplayElement(@Nullable GuiElementInterface element, @Nullable Slot slot) {
-        private static final DisplayElement EMPTY = DisplayElement.of(new GuiElement(ItemStack.EMPTY, GuiElementInterface.EMPTY_CALLBACK));
+    public record DisplayElement(@Nullable Supplier<GuiElement> elementSupplier, @Nullable Slot slot) {
+        private static final DisplayElement EMPTY = DisplayElement.of(new SimpleGuiElement(ItemStack.EMPTY, GuiElement.EMPTY_CALLBACK));
         private static final DisplayElement FILLER = DisplayElement.of(
                 new GuiElementBuilder(Items.WHITE_STAINED_GLASS_PANE)
                         .setName(Component.empty())
                         .hideTooltip()
         );
 
-        public static DisplayElement of(GuiElementInterface element) {
-            return new DisplayElement(element, null);
+        public static DisplayElement of(GuiElement element) {
+            return new DisplayElement(() -> element, null);
         }
 
-        public static DisplayElement of(GuiElementBuilderInterface<?> element) {
-            return new DisplayElement(element.build(), null);
+        public static DisplayElement of(GuiElementBuilderCreator<?> element) {
+            return new DisplayElement(element::build, null);
         }
 
         public static DisplayElement of(Slot slot) {
@@ -145,8 +148,8 @@ public abstract class PagedGui extends SimpleGui {
                         new GuiElementBuilder(Items.PLAYER_HEAD)
                                 .setName(Component.translatable("text.goml.gui.next_page").withStyle(ChatFormatting.WHITE))
                                 .hideDefaultTooltip()
-                                .setSkullOwner(GOMLTextures.GUI_NEXT_PAGE)
-                                .setCallback((x, y, z) -> {
+                                .setProfileSkinTexture(GOMLTextures.GUI_NEXT_PAGE)
+                                .setCallback(() -> {
                                     playClickSound(gui.player);
                                     gui.nextPage();
                                 })
@@ -156,7 +159,7 @@ public abstract class PagedGui extends SimpleGui {
                         new GuiElementBuilder(Items.PLAYER_HEAD)
                                 .setName(Component.translatable("text.goml.gui.next_page").withStyle(ChatFormatting.DARK_GRAY))
                                 .hideDefaultTooltip()
-                                .setSkullOwner(GOMLTextures.GUI_NEXT_PAGE_BLOCKED)
+                                .setProfileSkinTexture(GOMLTextures.GUI_NEXT_PAGE_BLOCKED)
                 );
             }
         }
@@ -167,8 +170,8 @@ public abstract class PagedGui extends SimpleGui {
                         new GuiElementBuilder(Items.PLAYER_HEAD)
                                 .setName(Component.translatable("text.goml.gui.previous_page").withStyle(ChatFormatting.WHITE))
                                 .hideDefaultTooltip()
-                                .setSkullOwner(GOMLTextures.GUI_PREVIOUS_PAGE)
-                                .setCallback((x, y, z) -> {
+                                .setProfileSkinTexture(GOMLTextures.GUI_PREVIOUS_PAGE)
+                                .setCallback(() -> {
                                     playClickSound(gui.player);
                                     gui.previousPage();
                                 })
@@ -178,7 +181,7 @@ public abstract class PagedGui extends SimpleGui {
                         new GuiElementBuilder(Items.PLAYER_HEAD)
                                 .setName(Component.translatable("text.goml.gui.previous_page").withStyle(ChatFormatting.DARK_GRAY))
                                 .hideDefaultTooltip()
-                                .setSkullOwner(GOMLTextures.GUI_PREVIOUS_PAGE_BLOCKED)
+                                .setProfileSkinTexture(GOMLTextures.GUI_PREVIOUS_PAGE_BLOCKED)
                 );
             }
         }
@@ -189,6 +192,11 @@ public abstract class PagedGui extends SimpleGui {
 
         public static DisplayElement empty() {
             return EMPTY;
+        }
+        
+        
+        public GuiElement element() {
+            return Objects.requireNonNull(this.elementSupplier).get();
         }
     }
 

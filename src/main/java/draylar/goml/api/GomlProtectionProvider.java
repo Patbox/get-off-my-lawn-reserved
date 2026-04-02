@@ -5,6 +5,7 @@ import draylar.goml.GetOffMyLawn;
 import draylar.goml.registry.GOMLBlocks;
 import eu.pb4.common.protection.api.ProtectionProvider;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.players.NameAndId;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -35,7 +36,7 @@ public final class GomlProtectionProvider implements ProtectionProvider {
     }
 
     @Override
-    public boolean canBreakBlock(Level world, BlockPos pos, GameProfile profile, @Nullable Player player) {
+    public boolean canBreakBlock(Level world, BlockPos pos,NameAndId profile, @Nullable Player player) {
         if (world.getServer() == null) {
             return true;
         }
@@ -49,7 +50,7 @@ public final class GomlProtectionProvider implements ProtectionProvider {
     }
 
     @Override
-    public boolean canExplodeBlock(Level world, BlockPos pos, Explosion explosion, GameProfile profile, @Nullable Player player) {
+    public boolean canExplodeBlock(Level world, BlockPos pos, Explosion explosion, NameAndId profile, @Nullable Player player) {
         if (world.getServer() == null) {
             return true;
         }
@@ -57,12 +58,12 @@ public final class GomlProtectionProvider implements ProtectionProvider {
     }
 
     @Override
-    public boolean canPlaceBlock(Level world, BlockPos pos, GameProfile profile, @Nullable Player player) {
+    public boolean canPlaceBlock(Level world, BlockPos pos, NameAndId profile, @Nullable Player player) {
         return this.canBreakBlock(world, pos, profile, player);
     }
 
     @Override
-    public boolean canInteractBlock(Level world, BlockPos pos, GameProfile profile, @Nullable Player player) {
+    public boolean canInteractBlock(Level world, BlockPos pos, NameAndId profile, @Nullable Player player) {
         if (world.getServer() == null) {
             return true;
         }
@@ -70,7 +71,7 @@ public final class GomlProtectionProvider implements ProtectionProvider {
     }
 
     @Override
-    public boolean canInteractEntity(Level world, Entity entity, GameProfile profile, @Nullable Player player) {
+    public boolean canInteractEntity(Level world, Entity entity, NameAndId profile, @Nullable Player player) {
         if (world.getServer() == null) {
             return true;
         }
@@ -78,7 +79,7 @@ public final class GomlProtectionProvider implements ProtectionProvider {
     }
 
     @Override
-    public boolean canDamageEntity(Level world, Entity entity, GameProfile profile, @Nullable Player player) {
+    public boolean canDamageEntity(Level world, Entity entity, NameAndId profile, @Nullable Player player) {
         if (world.getServer() == null) {
             return true;
         }

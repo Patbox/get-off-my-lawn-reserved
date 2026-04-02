@@ -27,10 +27,10 @@ public class GreeterAugmentBlock extends ClaimAugmentBlock {
         var text = claim.getData(MESSAGE_KEY);
 
         if (text != null && !text.isBlank()) {
-            player.displayClientMessage(GetOffMyLawn.CONFIG.messagePrefix.mutableText().append(Component.literal(" " + (text
+            player.sendSystemMessage(GetOffMyLawn.CONFIG.messagePrefix.mutableText().append(Component.literal(" " + (text
                     .replace("%player", player.getName().getString())
                     .replace("%p", player.getName().getString()))
-            ).withStyle(ChatFormatting.GRAY)), false);
+            ).withStyle(ChatFormatting.GRAY)));
         }
     }
 
@@ -45,7 +45,7 @@ public class GreeterAugmentBlock extends ClaimAugmentBlock {
 
         var ui = new AnvilInputGui(player, false) {
             @Override
-            public void onClose() {
+            public void onManualClose() {
                 if (closeCallback != null) {
                     closeCallback.run();
                 }
@@ -57,17 +57,17 @@ public class GreeterAugmentBlock extends ClaimAugmentBlock {
         ui.setSlot(1,
                 new GuiElementBuilder(Items.SLIME_BALL)
                         .setName(Component.translatable("text.goml.gui.input_greeting.set").withStyle(ChatFormatting.GREEN))
-                        .setCallback((index, clickType, actionType) -> {
+                        .setCallback(() -> {
                             PagedGui.playClickSound(player);
                             claim.setData(MESSAGE_KEY, ui.getInput());
-                            player.displayClientMessage(Component.translatable("text.goml.changed_greeting", Component.literal(ui.getInput()).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GREEN), false);
+                            player.sendSystemMessage(Component.translatable("text.goml.changed_greeting", Component.literal(ui.getInput()).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GREEN), false);
                         })
         );
 
         ui.setSlot(2,
                 new GuiElementBuilder(Items.STRUCTURE_VOID)
                         .setName(Component.translatable("text.goml.gui.input_greeting.close").withStyle(ChatFormatting.RED))
-                        .setCallback((index, clickType, actionType) -> {
+                        .setCallback(() -> {
                             PagedGui.playClickSound(player);
                             ui.close(closeCallback != null);
                         })

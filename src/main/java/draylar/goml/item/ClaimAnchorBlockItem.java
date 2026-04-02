@@ -39,7 +39,7 @@ public class ClaimAnchorBlockItem extends TooltippedBlockItem {
         var radius = this.claimBlock.getRadius();
 
         if (radius <= 0 && !ClaimUtils.isInAdminMode(context.getPlayer())) {
-            context.getPlayer().displayClientMessage(GetOffMyLawn.CONFIG.prefix(Component.translatable("text.goml.cant_place_claim.admin_only").withStyle(ChatFormatting.RED)), false);
+            context.getPlayer().sendSystemMessage(GetOffMyLawn.CONFIG.prefix(Component.translatable("text.goml.cant_place_claim.admin_only").withStyle(ChatFormatting.RED)));
             return false;
         }
 
@@ -72,12 +72,12 @@ public class ClaimAnchorBlockItem extends TooltippedBlockItem {
             if (maxCount != -1
                     && count >= maxCount
             ) {
-                context.getPlayer().displayClientMessage(GetOffMyLawn.CONFIG.prefix(Component.translatable("text.goml.cant_place_claim.max_count_reached", count, GetOffMyLawn.CONFIG.maxClaimsPerPlayer).withStyle(ChatFormatting.RED)), false);
+                context.getPlayer().sendSystemMessage(GetOffMyLawn.CONFIG.prefix(Component.translatable("text.goml.cant_place_claim.max_count_reached", count, GetOffMyLawn.CONFIG.maxClaimsPerPlayer).withStyle(ChatFormatting.RED)));
                 return false;
             }
 
             if (GetOffMyLawn.CONFIG.isBlacklisted(context.getLevel(), checkBox.toBox())) {
-                context.getPlayer().displayClientMessage(GetOffMyLawn.CONFIG.prefix(Component.translatable("text.goml.cant_place_claim.blacklisted_area", context.getLevel().dimension().identifier().toString(), context.getClickedPos().toShortString()).withStyle(ChatFormatting.RED)), false);
+                context.getPlayer().sendSystemMessage(GetOffMyLawn.CONFIG.prefix(Component.translatable("text.goml.cant_place_claim.blacklisted_area", context.getLevel().dimension().identifier().toString(), context.getClickedPos().toShortString()).withStyle(ChatFormatting.RED)));
                 return false;
             }
         }
@@ -102,7 +102,7 @@ public class ClaimAnchorBlockItem extends TooltippedBlockItem {
                 );
             });
 
-            context.getPlayer().displayClientMessage(GetOffMyLawn.CONFIG.prefix(Component.translatable("text.goml.cant_place_claim.collides_with", list).withStyle(ChatFormatting.RED)), false);
+            context.getPlayer().sendSystemMessage(GetOffMyLawn.CONFIG.prefix(Component.translatable("text.goml.cant_place_claim.collides_with", list).withStyle(ChatFormatting.RED)));
             return false;
         }
 

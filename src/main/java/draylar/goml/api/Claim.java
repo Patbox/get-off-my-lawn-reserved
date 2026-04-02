@@ -371,7 +371,7 @@ public class Claim {
 
         gui.addSlot(new GuiElementBuilder(Items.PLAYER_HEAD)
                 .setName(Component.translatable("text.goml.gui.claim.players").withStyle(ChatFormatting.WHITE))
-                .setCallback((x, y, z) -> {
+                .setCallback(() -> {
                     PagedGui.playClickSound(player);
                     ClaimPlayerListGui.open(player, this, ClaimUtils.isInAdminMode(player), () -> openUi(player));
                 })
@@ -379,8 +379,8 @@ public class Claim {
 
         gui.addSlot(new GuiElementBuilder(Items.PLAYER_HEAD)
                 .setName(Component.translatable("text.goml.gui.claim.augments").withStyle(ChatFormatting.WHITE))
-                .setSkullOwner(GOMLTextures.ANGELIC_AURA)
-                .setCallback((x, y, z) -> {
+                .setProfileSkinTexture(GOMLTextures.ANGELIC_AURA)
+                .setCallback(() -> {
                     PagedGui.playClickSound(player);
                     new ClaimAugmentGui(player, this, ClaimUtils.isInAdminMode(player) || this.isOwner(player), () -> openUi(player));
                 })
@@ -389,8 +389,8 @@ public class Claim {
         if (this.type == GOMLBlocks.ADMIN_CLAIM_ANCHOR.getFirst()) {
             gui.addSlot(new GuiElementBuilder(Items.PLAYER_HEAD)
                     .setName(Component.translatable("text.goml.gui.admin_settings").withStyle(ChatFormatting.WHITE))
-                    .setSkullOwner("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmY3YTQyMmRiMzVkMjhjZmI2N2U2YzE2MTVjZGFjNGQ3MzAwNzI0NzE4Nzc0MGJhODY1Mzg5OWE0NGI3YjUyMCJ9fX0=")
-                    .setCallback((x, y, z) -> {
+                    .setProfileSkinTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmY3YTQyMmRiMzVkMjhjZmI2N2U2YzE2MTVjZGFjNGQ3MzAwNzI0NzE4Nzc0MGJhODY1Mzg5OWE0NGI3YjUyMCJ9fX0=")
+                    .setCallback(() -> {
                         PagedGui.playClickSound(player);
                         new AdminAugmentGui(this, player, () -> openUi(player));
                     })

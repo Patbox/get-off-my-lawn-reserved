@@ -11,8 +11,9 @@ import draylar.goml.api.event.ClaimEvents;
 import draylar.goml.block.ClaimAnchorBlock;
 import draylar.goml.block.entity.ClaimAnchorBlockEntity;
 import eu.pb4.polymer.core.api.item.PolymerItem;
+import net.minecraft.core.HolderLookup;
 import org.jetbrains.annotations.Nullable;
-import xyz.nucleoid.packettweaker.PacketContext;
+import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -131,7 +132,7 @@ public class UpgradeKitItem extends Item implements PolymerItem {
                             );
                         });
 
-                        context.getPlayer().displayClientMessage(GetOffMyLawn.CONFIG.prefix(Component.translatable("text.goml.cant_upgrade_claim.collides_with", list).withStyle(ChatFormatting.RED)), false);
+                        context.getPlayer().sendSystemMessage(GetOffMyLawn.CONFIG.prefix(Component.translatable("text.goml.cant_upgrade_claim.collides_with", list).withStyle(ChatFormatting.RED)));
                     }
                 }
             }
@@ -157,7 +158,7 @@ public class UpgradeKitItem extends Item implements PolymerItem {
     }
 
     @Override
-    public @Nullable Identifier getPolymerItemModel(ItemStack stack, PacketContext context) {
+    public @Nullable Identifier getPolymerItemModel(ItemStack stack, PacketContext context, HolderLookup.Provider l) {
         return null;
     }
 }

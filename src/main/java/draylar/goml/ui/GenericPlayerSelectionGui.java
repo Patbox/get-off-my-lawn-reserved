@@ -82,7 +82,7 @@ public class GenericPlayerSelectionGui extends PagedGui {
                     .setName(Component.literal(player.name()))
                     .setProfile(player.id())
                     .hideDefaultTooltip()
-                    .setCallback((x, y, z) -> {
+                    .setCallback(() -> {
                         playClickSound(this.player);
                         this.onClick.accept(player);
                         this.close(this.closeCallback != null);
@@ -110,7 +110,7 @@ public class GenericPlayerSelectionGui extends PagedGui {
         return switch (id) {
             case 5 -> DisplayElement.of(new GuiElementBuilder(Items.NAME_TAG)
                     .setName(Component.translatable("text.goml.gui.player_selector.by_name").withStyle(ChatFormatting.GREEN))
-                    .setCallback((x, y, z) -> {
+                    .setCallback(() -> {
                         playClickSound(this.player);
 
                         this.ignoreCloseCallback = true;

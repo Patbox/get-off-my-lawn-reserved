@@ -156,7 +156,7 @@ public class ForceFieldAugmentBlock extends ClaimAugmentBlock {
             boolean ingore = false;
 
             @Override
-            public void onClose() {
+            public void onManualClose() {
                 if (closeCallback != null && !this.ingore) {
                     closeCallback.run();
                 }
@@ -171,7 +171,7 @@ public class ForceFieldAugmentBlock extends ClaimAugmentBlock {
                 gui.setSlot(0, new GuiElementBuilder(currentMode ? Items.WHITE_WOOL : Items.BLACK_WOOL)
                         .setName(Component.translatable("text.goml.gui.force_field.whitelist_mode", CommonComponents.optionStatus(currentMode)))
                         .addLoreLine(Component.translatable("text.goml.mode_toggle.help").withStyle(ChatFormatting.GRAY))
-                        .setCallback((x, y, z) -> {
+                        .setCallback(() -> {
                             PagedGui.playClickSound(player);
                             claim.setData(WHITELIST_KEY, !currentMode);
                             change.getValue().run();
@@ -186,7 +186,7 @@ public class ForceFieldAugmentBlock extends ClaimAugmentBlock {
             change.setValue(() -> {
                 gui.setSlot(1, new GuiElementBuilder(Items.PLAYER_HEAD)
                         .setName(Component.translatable("text.goml.gui.force_field.player_list"))
-                        .setCallback((x, y, z) -> {
+                        .setCallback(() -> {
                             PagedGui.playClickSound(player);
                             gui.ingore = true;
                             gui.close(true);
@@ -201,7 +201,7 @@ public class ForceFieldAugmentBlock extends ClaimAugmentBlock {
 
         gui.setSlot(4, new GuiElementBuilder(Items.STRUCTURE_VOID)
                 .setName(Component.translatable(closeCallback != null ? "text.goml.gui.back" : "text.goml.gui.close").withStyle(ChatFormatting.RED))
-                .setCallback((x, y, z) -> {
+                .setCallback(() -> {
                     PagedGui.playClickSound(player);
                     gui.close(closeCallback != null);
                 })
@@ -237,8 +237,8 @@ public class ForceFieldAugmentBlock extends ClaimAugmentBlock {
             return switch (id) {
                 case 5 -> DisplayElement.of(new GuiElementBuilder(Items.PLAYER_HEAD)
                         .setName(Component.translatable("text.goml.gui.player_list.add_player").withStyle(ChatFormatting.GREEN))
-                        .setSkullOwner(GOMLTextures.GUI_ADD)
-                        .setCallback((x, y, z) -> {
+                        .setProfileSkinTexture(GOMLTextures.GUI_ADD)
+                        .setCallback(() -> {
                             playClickSound(this.player);
                             this.ignoreCloseCallback = true;
                             this.close(true);
@@ -258,7 +258,7 @@ public class ForceFieldAugmentBlock extends ClaimAugmentBlock {
         @Override
         protected void modifyBuilder(GuiElementBuilder builder, Optional<NameAndId> optional, UUID uuid) {
             builder.addLoreLine(Component.translatable("text.goml.gui.click_to_remove"));
-            builder.setCallback((x, y, z) -> {
+            builder.setCallback(() -> {
                 playClickSound(player);
                 this.claim.getData(UUID_KEY).remove(uuid);
                 this.updateDisplay();

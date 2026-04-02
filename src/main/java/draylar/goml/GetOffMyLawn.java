@@ -1,9 +1,8 @@
 package draylar.goml;
 
+import eu.pb4.polymer.core.api.item.PolymerCreativeModeTabUtils;
 import org.ladysnake.cca.api.v3.component.ComponentKey;
 import org.ladysnake.cca.api.v3.component.ComponentRegistryV3;
-import org.ladysnake.cca.api.v3.world.WorldComponentFactoryRegistry;
-import org.ladysnake.cca.api.v3.world.WorldComponentInitializer;
 import draylar.goml.api.Claim;
 import draylar.goml.api.GomlProtectionProvider;
 import draylar.goml.cca.ClaimComponent;
@@ -19,7 +18,6 @@ import draylar.goml.registry.GOMLBlocks;
 import draylar.goml.registry.GOMLEntities;
 import draylar.goml.registry.GOMLItems;
 import eu.pb4.common.protection.api.CommonProtection;
-import eu.pb4.polymer.core.api.item.PolymerItemGroupUtils;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -34,12 +32,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.chunk.LevelChunk;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.ladysnake.cca.api.v8.level.LevelComponentFactoryRegistry;
+import org.ladysnake.cca.api.v8.level.LevelComponentInitializer;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class GetOffMyLawn implements ModInitializer, WorldComponentInitializer {
+public class GetOffMyLawn implements ModInitializer, LevelComponentInitializer {
     public static final String MOD_ID = "goml";
     public static final ComponentKey<ClaimComponent> CLAIM = ComponentRegistryV3.INSTANCE.getOrCreate(id("claims"), ClaimComponent.class);
     public static final CreativeModeTab GROUP = CreativeModeTab.builder(null, -1)
@@ -70,7 +70,7 @@ public class GetOffMyLawn implements ModInitializer, WorldComponentInitializer {
         ClaimCommand.init();
         PlaceholdersReg.init();
 
-        PolymerItemGroupUtils.registerPolymerItemGroup(id("group"), GROUP);
+        PolymerCreativeModeTabUtils.registerPolymerCreativeModeTab(id("group"), GROUP);
 
         CommonProtection.register(Identifier.fromNamespaceAndPath(MOD_ID, "claim_protection"), GomlProtectionProvider.INSTANCE);
 
@@ -79,7 +79,7 @@ public class GetOffMyLawn implements ModInitializer, WorldComponentInitializer {
             GetOffMyLawn.CONFIG = GOMLConfig.loadOrCreateConfig();
         });
 
-        ServerTickEvents.END_WORLD_TICK.register((world) -> CLAIM.get(world).getClaims().values().forEach(x -> x.tick(world)));
+        ServerTickEvents.END_LEVEL_TICK.register((world) -> CLAIM.get(world).getClaims().values().forEach(x -> x.tick(world)));
         ServerTickEvents.START_SERVER_TICK.register(server -> {
             for (var task : NEXT_TICK_TASK) {
                 task.run();
@@ -95,12 +95,12 @@ public class GetOffMyLawn implements ModInitializer, WorldComponentInitializer {
 
         ServerLifecycleEvents.SERVER_STARTED.register(WebmapCompat::init);
 
-        ServerChunkEvents.CHUNK_LOAD.register((world, server) -> GetOffMyLawn.onChunkEvent(world, server, Claim::internal_incrementChunks));
-        ServerChunkEvents.CHUNK_UNLOAD.register((world, server) -> GetOffMyLawn.onChunkEvent(world, server, Claim::internal_decrementChunks));
+        ServerChunkEvents.CHUNK_LOAD.register((world, chunk, created) -> GetOffMyLawn.onChunkEvent(world, chunk, Claim::internal_incrementChunks));
+        ServerChunkEvents.CHUNK_UNLOAD.register((world, chunk) -> GetOffMyLawn.onChunkEvent(world, chunk, Claim::internal_decrementChunks));
     }
 
     @Override
-    public void registerWorldComponentFactories(WorldComponentFactoryRegistry registry) {
+    public void registerLevelComponentFactories(LevelComponentFactoryRegistry registry) {
         registry.register(CLAIM, WorldClaimComponent::new);
     }
 
@@ -112,7 +112,7 @@ public class GetOffMyLawn implements ModInitializer, WorldComponentInitializer {
             var maxX = SectionPos.blockToSectionCoord(x.getKey().toBox().x2());
             var maxZ = SectionPos.blockToSectionCoord(x.getKey().toBox().z2());
 
-            return (minX <= chunk.getPos().x && maxX >= chunk.getPos().x && minZ <= chunk.getPos().z && maxZ >= chunk.getPos().z);
+            return (minX <= chunk.getPos().x() && maxX >= chunk.getPos().x() && minZ <= chunk.getPos().z() && maxZ >= chunk.getPos().z());
         }).forEach(x -> chunkHandler.accept(x.getValue()));
     }
 }

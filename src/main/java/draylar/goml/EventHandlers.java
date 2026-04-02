@@ -61,7 +61,7 @@ public class EventHandlers {
             }
 
             if (GetOffMyLawn.CONFIG.canInteract(entity)
-                    || entity.getType().is(GOMLTags.ALLOWED_INTERACTIONS_ENTITY)) {
+                    || entity.is(GOMLTags.ALLOWED_INTERACTIONS_ENTITY)) {
                 return InteractionResult.PASS;
             }
 
@@ -191,7 +191,7 @@ public class EventHandlers {
                 InteractionResult check = ClaimEvents.PERMISSION_DENIED.invoker().check(player, player.level(), hand, pos, reason);
 
                 if (check.consumesAction() || check.equals(InteractionResult.PASS)) {
-                    player.displayClientMessage(reason.getReason(), true);
+                    player.sendOverlayMessage(reason.getReason());
                     return InteractionResult.FAIL;
                 }
             }

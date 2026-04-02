@@ -59,7 +59,7 @@ public class ClaimPlayerListGui extends GenericPlayerListGui {
 
         if (this.canModifyTrusted) {
             builder.addLoreLine(Component.translatable("text.goml.gui.click_to_remove"));
-            builder.setCallback((x, y, z) -> {
+            builder.setCallback(() -> {
                 playClickSound(player);
                 this.claim.untrust(group);
                 this.updateDisplay();
@@ -86,8 +86,8 @@ public class ClaimPlayerListGui extends GenericPlayerListGui {
             case 5 -> this.canModifyTrusted
                     ? DisplayElement.of(new GuiElementBuilder(Items.PLAYER_HEAD)
                     .setName(Component.translatable("text.goml.gui.player_list.add_player").withStyle(ChatFormatting.GREEN))
-                    .setSkullOwner(GOMLTextures.GUI_ADD)
-                    .setCallback((x, y, z) -> {
+                    .setProfileSkinTexture(GOMLTextures.GUI_ADD)
+                    .setCallback(() -> {
                         playClickSound(this.player);
                         this.ignoreCloseCallback = true;
                         this.close(true);
@@ -123,7 +123,7 @@ public class ClaimPlayerListGui extends GenericPlayerListGui {
 
         if (canRemove) {
             builder.addLoreLine(Component.translatable("text.goml.gui.click_to_remove"));
-            builder.setCallback((x, y, z) -> {
+            builder.setCallback(() -> {
                 playClickSound(player);
                 (isOwner ? this.claim.getOwners() : this.claim.getTrusted()).remove(uuid);
                 this.updateDisplay();

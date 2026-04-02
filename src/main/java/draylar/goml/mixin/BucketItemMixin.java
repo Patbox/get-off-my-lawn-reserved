@@ -47,7 +47,7 @@ public class BucketItemMixin extends Item {
         HitResult hitResult = getPlayerPOVHitResult(world, user, this.content == Fluids.EMPTY ? ClipContext.Fluid.SOURCE_ONLY : ClipContext.Fluid.NONE);
 
         if(!ClaimUtils.canModify(world, ((BlockHitResult) hitResult).getBlockPos(), user)) {
-            user.displayClientMessage(Component.literal("This block is protected by a claim."), true);
+            user.sendOverlayMessage(Component.literal("This block is protected by a claim."));
             cir.setReturnValue(InteractionResult.FAIL);
         }
     }

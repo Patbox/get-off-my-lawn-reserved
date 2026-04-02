@@ -2,6 +2,7 @@ package draylar.goml.mixin;
 
 import draylar.goml.item.ToggleableBlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
@@ -15,11 +16,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ShapedRecipe.class)
 public class ShapedRecipeMixin {
     @Shadow @Final
-    ItemStack result;
+    ItemStackTemplate result;
 
     @Inject(method = "matches(Lnet/minecraft/world/item/crafting/CraftingInput;Lnet/minecraft/world/level/Level;)Z", at = @At("HEAD"), cancellable = true)
     private void goml_cancelIfDisabled(CraftingInput craftingRecipeInput, Level world, CallbackInfoReturnable<Boolean> cir) {
-        if (this.result.getItem() instanceof ToggleableBlockItem item && !item.isEnabled()) {
+        if (this.result.item() instanceof ToggleableBlockItem item && !item.isEnabled()) {
             cir.setReturnValue(false);
         }
     }

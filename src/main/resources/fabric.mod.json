@@ -19,7 +19,7 @@
     "main": [
       "draylar.goml.GetOffMyLawn"
     ],
-    "cardinal-components-world": [
+    "cardinal-components-level": [
       "draylar.goml.GetOffMyLawn"
     ],
     "preLaunch": ["draylar.goml.other.CardboardWarning"]

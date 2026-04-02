@@ -29,9 +29,8 @@
     "augment.EnderManMixin$EndermanLeaveBlockGoalMixin",
     "augment.EnderManMixin$EndermanTakeBlockGoalMixin",
     "augment.VillagerMixin",
-    "compat.BotaniaEntityManaBurstMixin",
-    "compat.BotaniaItemLaputaShardMixin",
-    "compat.DynmapClientMixin"
+    "compat.DynmapClientMixin",
+    "datafix.MixinDimensionStorageFileFix"
   ],
   "injectors": {
     "defaultRequire": 1

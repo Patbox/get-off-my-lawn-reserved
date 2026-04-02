@@ -79,7 +79,7 @@ public class ClaimAugmentGui extends PagedGui {
             if (this.canModify && entry.getValue().hasSettings()) {
                 builder.addLoreLine(Component.empty());
                 builder.addLoreLine(Component.translatable("text.goml.gui.click_to_modify").withStyle(ChatFormatting.RED));
-                builder.setCallback((x, y, z) -> {
+                builder.setCallback(() -> {
                     playClickSound(this.player);
                     entry.getValue().openSettings(this.claim, this.player, () -> {
                         new ClaimAugmentGui(this.player, this.claim, this.canModify, this.closeCallback);

@@ -2,7 +2,7 @@ package draylar.goml.ui;
 
 import com.mojang.authlib.GameProfile;
 import draylar.goml.registry.GOMLTextures;
-import eu.pb4.sgui.api.GuiHelpers;
+import eu.pb4.sgui.api.SguiUtils;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.AnvilInputGui;
 import java.util.concurrent.CompletableFuture;
@@ -36,7 +36,7 @@ public class NamePlayerSelectorGui extends AnvilInputGui {
         this.setSlot(2, new GuiElementBuilder(Items.STRUCTURE_VOID)
                 .setName(Component.translatable("text.goml.gui.back").withStyle(ChatFormatting.RED))
                 .hideDefaultTooltip()
-                .setCallback((x, y, z) -> {
+                .setCallback(() -> {
                     playClickSound(this.player);
                     this.close(true);
                 }));
@@ -44,7 +44,7 @@ public class NamePlayerSelectorGui extends AnvilInputGui {
     }
 
     @Override
-    public void onClose() {
+    public void onManualClose() {
         if (!ignore) {
             this.regularClose.run();
         }
@@ -97,7 +97,7 @@ public class NamePlayerSelectorGui extends AnvilInputGui {
                 .setName(Component.translatable("text.goml.gui.player_selector.input.invalid").withStyle(ChatFormatting.RED))
                         .hideDefaultTooltip()
                 .setProfileSkinTexture(GOMLTextures.GUI_QUESTION_MARK)
-                .setCallback((x, y, z) -> this.updateBack())
+                .setCallback(() -> this.updateBack())
                 .hideDefaultTooltip());
     }
 
@@ -113,7 +113,7 @@ public class NamePlayerSelectorGui extends AnvilInputGui {
 
         this.setSlot(1, b
                 .hideDefaultTooltip()
-                .setCallback((x, y, z) -> {
+                .setCallback(() -> {
                     if (this.selectedPlayer != null) {
                         playClickSound(this.player);
                         this.ignore = true;
@@ -126,8 +126,8 @@ public class NamePlayerSelectorGui extends AnvilInputGui {
     }
 
     private void updateBack() {
-        if (this.screenHandler != null) {
-            GuiHelpers.sendSlotUpdate(this.player, this.screenHandler.containerId, 2, this.getSlot(2).getItemStackForDisplay(this));
+        if (this.wrappedMenu != null) {
+            SguiUtils.sendSlotUpdate(this.player, this.wrappedMenu.containerId, 2, this.getGuiElement(2).getItemStackForDisplay(this));
         }
     }
 }

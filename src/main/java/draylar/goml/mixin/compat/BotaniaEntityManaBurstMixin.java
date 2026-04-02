@@ -13,9 +13,9 @@ import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import vazkii.botania.common.entity.EntityManaBurst;
+//import vazkii.botania.common.entity.EntityManaBurst;
 
-@Pseudo
+/*@Pseudo
 @Mixin(EntityManaBurst.class)
 public abstract class BotaniaEntityManaBurstMixin extends ThrowableProjectile {
     protected BotaniaEntityManaBurstMixin(EntityType<? extends ThrowableProjectile> entityType, Level world) {
@@ -38,3 +38,4 @@ public abstract class BotaniaEntityManaBurstMixin extends ThrowableProjectile {
         }
     }
 }
+*/

@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import vazkii.botania.common.item.ItemLaputaShard;
+/*import vazkii.botania.common.item.ItemLaputaShard;
 
 @Unique
 @Mixin(ItemLaputaShard.class)
@@ -23,4 +23,4 @@ public class BotaniaItemLaputaShardMixin {
         return instance.getBlockState(pos);
     }
 
-}
+}*/

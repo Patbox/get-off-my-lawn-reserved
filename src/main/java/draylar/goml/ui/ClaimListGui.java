@@ -5,18 +5,21 @@ import com.mojang.authlib.GameProfile;
 import draylar.goml.api.Claim;
 import draylar.goml.api.ClaimBox;
 import draylar.goml.api.ClaimUtils;
+import draylar.goml.other.FabricPermissionBridge;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
-import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.permissions.PermissionLevel;
 import org.jetbrains.annotations.ApiStatus;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import static draylar.goml.GetOffMyLawn.id;
 
 @ApiStatus.Internal
 public class ClaimListGui extends PagedGui {
@@ -57,8 +60,8 @@ public class ClaimListGui extends PagedGui {
             lore.removeFirst();
             icon.setLore(lore);
 
-            icon.setCallback((x, y, z) -> {
-                if (Permissions.check(this.player, "goml.teleport", 3)) {
+            icon.setCallback(() -> {
+                if (FabricPermissionBridge.checkPermission(this.player, id("teleport"), PermissionLevel.ADMINS)) {
                     var world = server.getLevel(ResourceKey.create(Registries.DIMENSION, claim.getWorld()));
                     if (world != null) {
                         this.player.teleportTo(world, claim.getOrigin().getX(), claim.getOrigin().getY() + 1, claim.getOrigin().getZ(), Set.of(), this.player.getYRot(), this.player.getXRot(), false);

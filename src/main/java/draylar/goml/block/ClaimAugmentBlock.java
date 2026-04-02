@@ -10,7 +10,7 @@ import draylar.goml.registry.GOMLTextures;
 import eu.pb4.polymer.core.api.block.PolymerHeadBlock;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
-import xyz.nucleoid.packettweaker.PacketContext;
+import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
 
 import java.util.function.BooleanSupplier;
 import net.minecraft.core.BlockPos;

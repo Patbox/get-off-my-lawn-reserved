@@ -8,11 +8,11 @@ import draylar.goml.GetOffMyLawn;
 import draylar.goml.api.event.ClaimEvents;
 import draylar.goml.block.augment.ExplosionControllerAugmentBlock;
 import draylar.goml.block.entity.ClaimAnchorBlockEntity;
+import draylar.goml.other.FabricPermissionBridge;
 import draylar.goml.other.GomlPlayer;
 import draylar.goml.other.OriginOwner;
 import draylar.goml.other.StatusEnum;
 import draylar.goml.registry.GOMLBlocks;
-import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -24,6 +24,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.objects.PlayerSprite;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.permissions.PermissionLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.InteractionHand;
@@ -47,6 +48,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static draylar.goml.GetOffMyLawn.id;
 
 public class ClaimUtils {
 
@@ -183,7 +186,7 @@ public class ClaimUtils {
     }
 
     public static boolean isInAdminMode(Player player) {
-        return Permissions.check(player, "goml.modify_others", 3) && (player instanceof GomlPlayer adminModePlayer && adminModePlayer.goml_getAdminMode());
+        return FabricPermissionBridge.checkPermission(player, id("modify_others"), PermissionLevel.ADMINS) && (player instanceof GomlPlayer adminModePlayer && adminModePlayer.goml_getAdminMode());
     }
 
     public static boolean canFireDestroy(Level world, BlockPos pos) {

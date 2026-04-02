@@ -53,7 +53,7 @@ public class GenericPlayerAndGroupSelectionGui extends GenericPlayerSelectionGui
                         )
                 )
                 .hideDefaultTooltip()
-                .setCallback((x, y, z) -> {
+                .setCallback(() -> {
                     playClickSound(this.player);
                     this.onClickGroup.accept(group);
                     this.close(this.closeCallback != null);

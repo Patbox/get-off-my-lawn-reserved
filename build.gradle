@@ -1,15 +1,14 @@
 
 plugins {
-	id 'fabric-loom' version '1.13.+'
+	id 'net.fabricmc.fabric-loom' version '1.15.+'
 	id 'maven-publish'
 	id "com.modrinth.minotaur" version "2.+"
 	id 'com.matthewprenger.cursegradle' version '1.4.0'
 }
 
-sourceCompatibility = JavaVersion.VERSION_21
-targetCompatibility = JavaVersion.VERSION_21
-
-archivesBaseName = project.archives_base_name
+base {
+	archivesName = project.archives_base_name
+}
 version = project.mod_version + "+" + project.minecraft_version
 group = project.maven_group
 
@@ -59,36 +58,35 @@ repositories {
 dependencies {
 	//to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings loom.officialMojangMappings()
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
-	modImplementation include("com.jamieswhiteshirt:rtree-3i-lite-fabric:${project.rtree_version}")
+	implementation include("com.jamieswhiteshirt:rtree-3i-lite-fabric:${project.rtree_version}")
 	// CCA for data
-	modImplementation include("org.ladysnake.cardinal-components-api:cardinal-components-base:${project.cca_version}")
+	implementation include("org.ladysnake.cardinal-components-api:cardinal-components-base:${project.cca_version}")
 
-	modImplementation include("org.ladysnake.cardinal-components-api:cardinal-components-world:${project.cca_version}")
+	implementation include("org.ladysnake.cardinal-components-api:cardinal-components-level:${project.cca_version}")
 
 	// Flight
-	modImplementation include("io.github.ladysnake:PlayerAbilityLib:${pal_version}")
+	implementation include("io.github.ladysnake:PlayerAbilityLib:${pal_version}")
 
 	// Dev testing
 	//modCompileOnly 'curse.maven:BLAST-349938:3838824'
 	//modCompileOnly 'com.github.Ladysnake:BLAST:1.19-SNAPSHOT'
-	modCompileOnly 'vazkii.botania:Botania:1.18.1-427-FABRIC'
+	//modCompileOnly 'vazkii.botania:Botania:1.18.1-427-FABRIC'
 
 
 	//modCompileOnly "maven.modrinth:argonauts:${project.argonauts_version}"
 	//modCompileOnly "maven.modrinth:resourceful-lib:${project.reslib_version}"
-	modCompileOnly "curse.maven:dynmapforge-59433:5442994"
+	compileOnly "curse.maven:dynmapforge-59433:5442994"
 
 	// Server side stuff
-	modImplementation "eu.pb4:polymer-core:${project.polymer_version}"
-	modImplementation include("eu.pb4:sgui:${project.sgui_version}")
-	modImplementation include("eu.pb4:placeholder-api:${project.placeholder_version}")
-	modImplementation include("xyz.nucleoid:server-translations-api:${project.stapi_version}")
-	modImplementation include("me.lucko:fabric-permissions-api:0.6.0-patbox")
-	modImplementation include("eu.pb4:common-protection-api:1.0.0")
+	implementation "eu.pb4:polymer-core:${project.polymer_version}"
+	implementation include("eu.pb4:sgui:${project.sgui_version}")
+	implementation include("eu.pb4:placeholder-api:${project.placeholder_version}")
+	implementation include("xyz.nucleoid:server-translations-api:${project.stapi_version}")
+	implementation "me.lucko:fabric-permissions-api:0.7.0"
+	implementation include("eu.pb4:common-protection-api:2.0.0")
 
 	// Webmap integrations
 	compileOnly "us.dynmap:DynmapCoreAPI:${dynmap_version}"
@@ -146,18 +144,17 @@ curseforge {
 			changelogType = "markdown"
 			addGameVersion((project.minecraft_version.contains("-") ? ((String) project.minecraft_version.split("-")[0] + "-snapshot") : project.minecraft_version))
 			addGameVersion "Fabric"
-			addGameVersion "Quilt"
 			relations {
 				requiredDependency 'polymer'
 			}
-			mainArtifact(remapJar)
+			mainArtifact(jar.archiveFile)
 
 			afterEvaluate {
-				uploadTask.dependsOn("remapJar")
+				uploadTask.dependsOn("jar")
 			}
 		}
 
-		remapJar {
+		jar {
 			finalizedBy project.tasks.curseforge
 		}
 	}
@@ -176,16 +173,16 @@ if (System.getenv("MODRINTH")) {
 		versionNumber = "" + version
 
 		changelog = System.getenv("CHANGELOG")
-		// On fabric, use 'remapJar' instead of 'jar'
-		uploadFile = remapJar
+		// On fabric, use 'jar' instead of 'jar'
+		uploadFile = jar
 		gameVersions = [((String) project.minecraft_version)]
 		dependencies {
 			required.project "polymer"
 		}
-		loaders = ["fabric", "quilt"]
+		loaders = ["fabric"]
 	}
 
-	remapJar {
+	jar {
 		finalizedBy project.tasks.modrinth
 	}
 }

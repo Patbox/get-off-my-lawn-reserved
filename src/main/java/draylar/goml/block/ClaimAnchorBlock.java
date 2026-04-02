@@ -9,9 +9,9 @@ import draylar.goml.item.UpgradeKitItem;
 import draylar.goml.registry.GOMLEntities;
 import draylar.goml.registry.GOMLTextures;
 import eu.pb4.polymer.core.api.block.PolymerHeadBlock;
+import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import org.jetbrains.annotations.Nullable;
-import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.Collections;
 import java.util.function.IntSupplier;

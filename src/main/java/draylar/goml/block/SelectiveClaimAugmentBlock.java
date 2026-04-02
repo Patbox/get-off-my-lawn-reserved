@@ -59,7 +59,7 @@ public class SelectiveClaimAugmentBlock extends ClaimAugmentBlock {
 
         var gui = new SimpleGui(MenuType.HOPPER, player, false) {
             @Override
-            public void onClose() {
+            public void onManualClose() {
                 if (closeCallback != null) {
                     closeCallback.run();
                 }
@@ -74,7 +74,7 @@ public class SelectiveClaimAugmentBlock extends ClaimAugmentBlock {
             gui.setSlot(0, new GuiElementBuilder(currentMode.getIcon())
                     .setName(Component.translatable("text.goml.mode_toggle", currentMode.getName()))
                     .addLoreLine(Component.translatable("text.goml.mode_toggle.help").withStyle(ChatFormatting.GRAY))
-                    .setCallback((x, y, z) -> {
+                    .setCallback(() -> {
                         PagedGui.playClickSound(player);
                         var mode = currentMode.getNext();
                         claim.setData(key, mode);
@@ -94,7 +94,7 @@ public class SelectiveClaimAugmentBlock extends ClaimAugmentBlock {
 
         gui.setSlot(4, new GuiElementBuilder(Items.STRUCTURE_VOID)
                 .setName(Component.translatable(closeCallback != null ? "text.goml.gui.back" : "text.goml.gui.close").withStyle(ChatFormatting.RED))
-                .setCallback((x, y, z) -> {
+                .setCallback(() -> {
                     PagedGui.playClickSound(player);
                     gui.close();
                 })

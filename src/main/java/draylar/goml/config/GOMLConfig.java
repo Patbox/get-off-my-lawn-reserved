@@ -50,7 +50,7 @@ public class GOMLConfig {
 
     public Set<EntityType<?>> allowedEntityInteraction = Set.of();
 
-    public WrappedText messagePrefix = WrappedText.of("<dark_gray>[<#a1ff59>GOML</color>]");
+    public WrappedText messagePrefix = WrappedText.of("<dark_gray>[<#a1ff59>GOML</>]");
 
     public WrappedText placeholderNoClaimInfo = WrappedText.of("<gray><italic>Wilderness");
     public WrappedText placeholderNoClaimOwners = WrappedText.of("<gray><italic>Nobody");

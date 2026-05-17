@@ -3,14 +3,16 @@ package draylar.goml.item;
 import draylar.goml.GetOffMyLawn;
 import draylar.goml.api.ClaimUtils;
 import draylar.goml.block.ClaimAnchorBlock;
+import draylar.goml.other.FabricPermissionBridge;
 import draylar.goml.registry.GOMLBlocks;
-import me.lucko.fabric.api.permissions.v0.Options;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.state.BlockState;
 import java.util.Objects;
 import java.util.function.Consumer;
+
+import static draylar.goml.GetOffMyLawn.id;
 
 public class ClaimAnchorBlockItem extends TooltippedBlockItem {
 
@@ -49,25 +51,11 @@ public class ClaimAnchorBlockItem extends TooltippedBlockItem {
         if (!ClaimUtils.isInAdminMode(context.getPlayer())) {
             var count = ClaimUtils.getClaimsOwnedBy(context.getLevel(), Objects.requireNonNull(context.getPlayer()).getUUID()).filter(x -> x.getValue().getType() != GOMLBlocks.ADMIN_CLAIM_ANCHOR.getFirst()).count();
 
-            int maxCount;
-            var allowedCount = Options.get(context.getPlayer(), "goml.claim_limit");
-            var allowedCount2 = Options.get(context.getPlayer(), "goml.claim_limit." + context.getLevel().dimension().identifier().toString());
+            var allowedCount = FabricPermissionBridge.checkPermissionInteger(context.getPlayer(), id("claim_limit"));
+            var allowedCount2 = FabricPermissionBridge.checkPermissionInteger(context.getPlayer(), id("claim_limit/" +
+                    context.getLevel().dimension().identifier().getNamespace() + "/" + context.getLevel().dimension().identifier().getPath()));
 
-            if (allowedCount2.isPresent()) {
-                try {
-                    maxCount = Integer.parseInt(allowedCount2.get());
-                } catch (Throwable t) {
-                    maxCount = GetOffMyLawn.CONFIG.maxClaimsPerPlayer;
-                }
-            } else if (allowedCount.isPresent()) {
-                try {
-                    maxCount = Integer.parseInt(allowedCount.get());
-                } catch (Throwable t) {
-                    maxCount = GetOffMyLawn.CONFIG.maxClaimsPerPlayer;
-                }
-            } else {
-                maxCount = GetOffMyLawn.CONFIG.maxClaimsPerPlayer;
-            }
+            var maxCount = allowedCount2.orElse(allowedCount.orElse(GetOffMyLawn.CONFIG.maxClaimsPerPlayer));
 
             if (maxCount != -1
                     && count >= maxCount

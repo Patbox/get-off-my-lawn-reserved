@@ -85,7 +85,7 @@ dependencies {
 	implementation include("eu.pb4:sgui:${project.sgui_version}")
 	implementation include("eu.pb4:placeholder-api:${project.placeholder_version}")
 	implementation include("xyz.nucleoid:server-translations-api:${project.stapi_version}")
-	implementation "me.lucko:fabric-permissions-api:0.7.0"
+	compileOnly "me.lucko:fabric-permissions-api:0.7.0"
 	implementation include("eu.pb4:common-protection-api:2.0.0")
 
 	// Webmap integrations

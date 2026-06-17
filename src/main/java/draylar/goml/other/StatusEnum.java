@@ -22,10 +22,10 @@ public interface StatusEnum<T> {
 
         public Item getIcon() {
             return switch (this) {
-                case EVERYONE -> Items.GREEN_WOOL;
-                case TRUSTED -> Items.YELLOW_WOOL;
-                case UNTRUSTED -> Items.RED_WOOL;
-                case DISABLED -> Items.GRAY_WOOL;
+                case EVERYONE -> Items.WOOL.green();
+                case TRUSTED -> Items.WOOL.yellow();
+                case UNTRUSTED -> Items.WOOL.red();
+                case DISABLED -> Items.WOOL.gray();
             };
         }
 
@@ -58,8 +58,8 @@ public interface StatusEnum<T> {
 
         public Item getIcon() {
             return switch (this) {
-                case ENABLED -> Items.GREEN_WOOL;
-                case DISABLED -> Items.GRAY_WOOL;
+                case ENABLED -> Items.WOOL.green();
+                case DISABLED -> Items.WOOL.gray();
             };
         }
 

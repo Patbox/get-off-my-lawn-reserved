@@ -14,6 +14,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.scores.PlayerTeam;
+import net.minecraft.world.scores.TeamColor;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -108,8 +109,8 @@ public class VanillaTeamGroups {
         @Override
         public ItemStack icon() {
             var stack = new ItemStack(Items.LEATHER_HELMET);
-            var i = this.team.getColor().getColor();
-            stack.set(DataComponents.DYED_COLOR, new DyedItemColor(i != null ? i : 0xFFFFFF));
+            var i = this.team.getColor().map(TeamColor::rgb).orElse(0xFFFFFF);
+            stack.set(DataComponents.DYED_COLOR, new DyedItemColor(i));
             stack.set(DataComponents.TOOLTIP_DISPLAY, TooltipDisplay.DEFAULT.withHidden(DataComponents.DYED_COLOR, false));
             return stack;
         }

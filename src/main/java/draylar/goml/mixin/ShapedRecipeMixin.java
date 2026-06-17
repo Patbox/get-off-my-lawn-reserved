@@ -20,7 +20,7 @@ public class ShapedRecipeMixin {
 
     @Inject(method = "matches(Lnet/minecraft/world/item/crafting/CraftingInput;Lnet/minecraft/world/level/Level;)Z", at = @At("HEAD"), cancellable = true)
     private void goml_cancelIfDisabled(CraftingInput craftingRecipeInput, Level world, CallbackInfoReturnable<Boolean> cir) {
-        if (this.result.item() instanceof ToggleableBlockItem item && !item.isEnabled()) {
+        if (this.result.item().value() instanceof ToggleableBlockItem item && !item.isEnabled()) {
             cir.setReturnValue(false);
         }
     }

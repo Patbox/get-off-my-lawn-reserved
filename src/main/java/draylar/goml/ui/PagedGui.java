@@ -125,7 +125,7 @@ public abstract class PagedGui extends SimpleGui {
     public record DisplayElement(@Nullable Supplier<GuiElement> elementSupplier, @Nullable Slot slot) {
         private static final DisplayElement EMPTY = DisplayElement.of(new SimpleGuiElement(ItemStack.EMPTY, GuiElement.EMPTY_CALLBACK));
         private static final DisplayElement FILLER = DisplayElement.of(
-                new GuiElementBuilder(Items.WHITE_STAINED_GLASS_PANE)
+                new GuiElementBuilder(Items.STAINED_GLASS_PANE.white())
                         .setName(Component.empty())
                         .hideTooltip()
         );

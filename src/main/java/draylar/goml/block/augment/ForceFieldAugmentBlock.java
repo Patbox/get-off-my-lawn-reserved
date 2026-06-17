@@ -1,6 +1,7 @@
 package draylar.goml.block.augment;
 
 import com.mojang.authlib.GameProfile;
+import com.mojang.datafixers.util.Pair;
 import draylar.goml.GetOffMyLawn;
 import draylar.goml.api.Claim;
 import draylar.goml.api.ClaimUtils;
@@ -30,7 +31,6 @@ import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.NameAndId;
-import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.Relative;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
@@ -52,10 +52,10 @@ public class ForceFieldAugmentBlock extends ClaimAugmentBlock {
     @Override
     public void onPlayerEnter(Claim claim, Player player) {
         if (shouldBlock(claim, player) && claim.getClaimBox().minecraftBox().contains(player.position())) {
-            Tuple<Vec3, Direction> pair = ClaimUtils.getClosestXZBorder(claim, player.position(), 2);
+            Pair<Vec3, Direction> pair = ClaimUtils.getClosestXZBorder(claim, player.position(), 2);
             int distance = 0;
             while (true) {
-                var i = shouldBlock(player.level(), pair.getA(), player);
+                var i = shouldBlock(player.level(), pair.getFirst(), player);
 
                 if (i == -1) {
                     break;
@@ -67,11 +67,11 @@ public class ForceFieldAugmentBlock extends ClaimAugmentBlock {
 
             var pairPart = ClaimUtils.getClosestXZBorder(claim, player.position(), distance);
 
-            var pos = pair.getA();
-            var dir = pair.getB();
-            var pos2 = pairPart.getA();
+            var pos = pair.getFirst();
+            var dir = pair.getSecond();
+            var pos2 = pairPart.getFirst();
 
-            var dir2 = pairPart.getB();
+            var dir2 = pairPart.getSecond();
 
             for (int x = -1; x <= 1; x++) {
                 for (int y = -1; y <= 1; y++) {
@@ -168,7 +168,7 @@ public class ForceFieldAugmentBlock extends ClaimAugmentBlock {
             var change = new MutableObject<Runnable>();
             change.setValue(() -> {
                 var currentMode = claim.getData(WHITELIST_KEY).booleanValue();
-                gui.setSlot(0, new GuiElementBuilder(currentMode ? Items.WHITE_WOOL : Items.BLACK_WOOL)
+                gui.setSlot(0, new GuiElementBuilder(currentMode ? Items.WOOL.white() : Items.WOOL.black())
                         .setName(Component.translatable("text.goml.gui.force_field.whitelist_mode", CommonComponents.optionStatus(currentMode)))
                         .addLoreLine(Component.translatable("text.goml.mode_toggle.help").withStyle(ChatFormatting.GRAY))
                         .setCallback(() -> {

@@ -3,6 +3,7 @@ package draylar.goml.api;
 import com.jamieswhiteshirt.rtree3i.Box;
 import com.jamieswhiteshirt.rtree3i.Entry;
 import com.jamieswhiteshirt.rtree3i.Selection;
+import com.mojang.datafixers.util.Pair;
 import draylar.goml.EventHandlers;
 import draylar.goml.GetOffMyLawn;
 import draylar.goml.api.event.ClaimEvents;
@@ -26,7 +27,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.permissions.PermissionLevel;
 import net.minecraft.util.Mth;
-import net.minecraft.util.Tuple;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -420,11 +420,11 @@ public class ClaimUtils {
         return new ClaimBox(pos, radius, GetOffMyLawn.CONFIG.claimProtectsFullWorldHeight ? Short.MAX_VALUE : (int) (radius * GetOffMyLawn.CONFIG.claimAreaHeightMultiplier));
     }
 
-    public static Tuple<Vec3, Direction> getClosestXZBorder(Claim claim, Vec3 curPos) {
+    public static Pair<Vec3, Direction> getClosestXZBorder(Claim claim, Vec3 curPos) {
         return getClosestXZBorder(claim, curPos, 0);
     }
 
-    public static Tuple<Vec3, Direction> getClosestXZBorder(Claim claim, Vec3 curPos, double extraDistance) {
+    public static Pair<Vec3, Direction> getClosestXZBorder(Claim claim, Vec3 curPos, double extraDistance) {
         var box = claim.getClaimBox();
 
         var center = box.noShift() ? Vec3.atLowerCornerOf(box.origin()) : Vec3.atCenterOf(box.getOrigin());
@@ -461,7 +461,7 @@ public class ClaimUtils {
         }
 
 
-        return new Tuple<>(center.add(x, 0, z), dir);
+        return new Pair<>(center.add(x, 0, z), dir);
     }
 
     public static boolean hasMatchingClaims(Level world, BlockPos target, BlockPos origin) {

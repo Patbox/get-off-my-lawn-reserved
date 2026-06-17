@@ -34,6 +34,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.ladysnake.cca.api.v8.level.LevelComponentFactoryRegistry;
 import org.ladysnake.cca.api.v8.level.LevelComponentInitializer;
+import org.spongepowered.asm.mixin.MixinEnvironment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +63,7 @@ public class GetOffMyLawn implements ModInitializer, LevelComponentInitializer {
 
     @Override
     public void onInitialize() {
+        MixinEnvironment.getCurrentEnvironment().audit();
         CardboardWarning.checkAndAnnounce();
         GOMLBlocks.init();
         GOMLItems.init();

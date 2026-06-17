@@ -185,8 +185,8 @@ public class ClaimCommand {
 
                 var pair = ClaimUtils.getClosestXZBorder(claim.getValue(), player.position(), 1);
 
-                var pos = pair.getA();
-                var dir = pair.getB();
+                var pos = pair.getFirst();
+                var dir = pair.getSecond();
 
                 double y;
                 if (player.level().noCollision(player, player.getDimensions(player.getPose()).makeBoundingBox(pos.x, player.getY(), pos.z))) {

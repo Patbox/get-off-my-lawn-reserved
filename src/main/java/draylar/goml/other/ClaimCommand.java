@@ -212,10 +212,10 @@ public class ClaimCommand {
                     player.connection.send(new ClientboundSetEntityMotionPacket(player.getVehicle()));
                 }
             });
-            context.getSource().sendSuccess(() -> prefix(Component.translatable("text.goml.command/escaped").withStyle(ChatFormatting.GREEN)), false);
+            context.getSource().sendSuccess(() -> prefix(Component.translatable("text.goml.command.escaped").withStyle(ChatFormatting.GREEN)), false);
 
         } else {
-            context.getSource().sendSuccess(() -> prefix(Component.translatable("text.goml.command/cant_escape").withStyle(ChatFormatting.RED)), false);
+            context.getSource().sendSuccess(() -> prefix(Component.translatable("text.goml.command.cant_escape").withStyle(ChatFormatting.RED)), false);
 
         }
 
@@ -250,10 +250,10 @@ public class ClaimCommand {
             int numberOfClaimsWorld = worldClaims.size();
             numberOfClaimsTotal.addAndGet(1);
 
-            player.sendSystemMessage(prefix(Component.translatable("text.goml.command/number_in", world.dimension().identifier(), numberOfClaimsWorld)), false);
+            player.sendSystemMessage(prefix(Component.translatable("text.goml.command.number_in", world.dimension().identifier(), numberOfClaimsWorld)), false);
         });
 
-        player.sendSystemMessage(prefix(Component.translatable("text.goml.command/number_all", numberOfClaimsTotal.get()).withStyle(ChatFormatting.WHITE)), false);
+        player.sendSystemMessage(prefix(Component.translatable("text.goml.command.number_all", numberOfClaimsTotal.get()).withStyle(ChatFormatting.WHITE)), false);
 
         return 1;
     }
@@ -344,7 +344,7 @@ public class ClaimCommand {
         var worldClaims = GetOffMyLawn.CLAIM.get(world).getClaims();
         int numberOfClaims = worldClaims.size();
 
-        player.sendSystemMessage(prefix(Component.translatable("text.goml.command/number_in", world.dimension().identifier(), numberOfClaims)), false);
+        player.sendSystemMessage(prefix(Component.translatable("text.goml.command.number_in", world.dimension().identifier(), numberOfClaims)), false);
 
         return 1;
     }
@@ -362,7 +362,7 @@ public class ClaimCommand {
         if (!world.isClientSide()) {
             ClaimUtils.getClaimsAt(world, player.blockPosition()).forEach(claimedArea -> {
                 claimedArea.getValue().destroy();
-                player.sendSystemMessage(prefix(Component.translatable("text.goml.command/removed_claim", world.dimension().identifier().toString(), claimedArea.getValue().getOrigin().toShortString())), false);
+                player.sendSystemMessage(prefix(Component.translatable("text.goml.command.removed_claim", world.dimension().identifier().toString(), claimedArea.getValue().getOrigin().toShortString())), false);
                 var blockEntity = world.getBlockEntity(claimedArea.getValue().getOrigin(), GOMLEntities.CLAIM_ANCHOR);
 
                 if (blockEntity.isPresent()) {
@@ -389,7 +389,7 @@ public class ClaimCommand {
 
         Function<String, Component> write = (command) -> Component.literal("/goml " + command)
                 .append(Component.literal(" - ").withStyle(ChatFormatting.GRAY))
-                .append(Component.translatable("text.goml.command/help." + command).setStyle(Style.EMPTY.withColor(0xededed)));
+                .append(Component.translatable("text.goml.command.help." + command).setStyle(Style.EMPTY.withColor(0xededed)));
 
         player.sendSystemMessage(Component.literal("[").withStyle(ChatFormatting.DARK_GRAY).append(Component.literal("Get Off My Lawn").setStyle(Style.EMPTY.withColor(0xa1ff59))).append("]"), false);
         player.sendSystemMessage(Component.literal("-------------------------------------").withStyle(ChatFormatting.DARK_GRAY), false);
@@ -422,7 +422,7 @@ public class ClaimCommand {
         var claim = ClaimUtils.getClaimsAt(player.level(), player.blockPosition());
 
         if (claim.isEmpty()) {
-            player.sendSystemMessage(prefix(Component.translatable("text.goml.command/no_claims").withStyle(ChatFormatting.RED)), false);
+            player.sendSystemMessage(prefix(Component.translatable("text.goml.command.no_claims").withStyle(ChatFormatting.RED)), false);
             return 0;
         }
 
@@ -444,12 +444,12 @@ public class ClaimCommand {
                     if (skipChecks || claimedArea.getValue().isOwner(player)) {
                         if (owner && !claimedArea.getValue().isOwner(toAdd.id())) {
                             claimedArea.getValue().addOwner(toAdd.id());
-                            player.sendSystemMessage(prefix(Component.translatable("text.goml.command/owner_added", toAdd.name())), false);
+                            player.sendSystemMessage(prefix(Component.translatable("text.goml.command.owner_added", toAdd.name())), false);
                         } else if (!owner && !claimedArea.getValue().getTrusted().contains(toAdd.id())) {
                             claimedArea.getValue().trust(toAdd.id());
-                            player.sendSystemMessage(prefix(Component.translatable("text.goml.command/trusted", toAdd.name())), false);
+                            player.sendSystemMessage(prefix(Component.translatable("text.goml.command.trusted", toAdd.name())), false);
                         } else {
-                            player.sendSystemMessage(prefix(Component.translatable("text.goml.command/already_added", toAdd.name())), false);
+                            player.sendSystemMessage(prefix(Component.translatable("text.goml.command.already_added", toAdd.name())), false);
                         }
                     }
                 }
@@ -470,7 +470,7 @@ public class ClaimCommand {
             for (var toRemove : toRemoveCol) {
 
                 if (toRemove.id().equals(player.getUUID()) && !ClaimUtils.isInAdminMode(player)) {
-                    player.sendSystemMessage(prefix(Component.translatable("text.goml.command/remove_self")), false);
+                    player.sendSystemMessage(prefix(Component.translatable("text.goml.command.remove_self")), false);
                     return;
                 }
 
@@ -482,7 +482,7 @@ public class ClaimCommand {
                     }
 
 
-                    player.sendSystemMessage(prefix(Component.translatable("text.goml.command/" + (owner ? "owner_removed" : "untrusted"), toRemove.name())), false);
+                    player.sendSystemMessage(prefix(Component.translatable("text.goml.command." + (owner ? "owner_removed" : "untrusted"), toRemove.name())), false);
                 }
             }
         });
